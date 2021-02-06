@@ -22,31 +22,37 @@
     // The background demon to move the map
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while (true) {
+            float speed = tankMovmentSpeed;
+
+            if ((movingUp + movingDown + movingLeft + movingRight) >= 2) {
+                speed /= 2;
+            }
+
             if (movingUp) {
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     CGPoint newPos = self->background.position;
-                    newPos.y -= tankMovmentSpeed;
+                    newPos.y -= speed;
                     [self->background setPosition:newPos];
                 });
             }
             if (movingDown) {
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     CGPoint newPos = self->background.position;
-                    newPos.y += tankMovmentSpeed;
+                    newPos.y += speed;
                     [self->background setPosition:newPos];
                 });
             }
             if (movingLeft) {
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     CGPoint newPos = self->background.position;
-                    newPos.x += tankMovmentSpeed;
+                    newPos.x += speed;
                     [self->background setPosition:newPos];
                 });
             }
             if (movingRight) {
                 dispatch_async(dispatch_get_main_queue(), ^(void) {
                     CGPoint newPos = self->background.position;
-                    newPos.x -= tankMovmentSpeed;
+                    newPos.x -= speed;
                     [self->background setPosition:newPos];
                 });
             }
@@ -78,7 +84,6 @@
                 [self->tank setZRotation:rad];
             });
 
-            //sleep(0.1);
             [NSThread sleepForTimeInterval:0.01f];
         }
     });
