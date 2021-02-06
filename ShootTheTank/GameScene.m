@@ -116,6 +116,7 @@ bool movingUp;
 bool movingDown;
 bool movingLeft;
 bool movingRight;
+double tankMovmentSpeed = 0.002;
 
 - (void)keyDown:(NSEvent*)event {
     NSLog(@"%s", __func__);
@@ -170,47 +171,7 @@ bool movingRight;
     }
 }
 
-double tankMovmentSpeed = 0.001;
 
-- (void)keyDown222:(NSEvent *)theEvent {
-
-    CGPoint newPos;
-    switch (theEvent.keyCode) {
-        case 0x31 /* SPACE */:
-            // Run 'Pulse' action from 'Actions.sks'
-            [_label runAction:[SKAction actionNamed:@"Pulse"] withKey:@"fadeInOut"];
-            break;
-
-        case 0x0D: // up
-            NSLog(@"%s UP", __func__);
-            newPos = background.position;
-            newPos.y -= tankMovmentSpeed;
-            [background setPosition:newPos];
-            break;
-
-        case 0x01: // down
-            newPos = background.position;
-            newPos.y += tankMovmentSpeed;
-            [background setPosition:newPos];
-            break;
-
-        case 0x02: // right
-            newPos = background.position;
-            newPos.x -= tankMovmentSpeed;
-            [background setPosition:newPos];
-            break;
-
-        case 0x00: // left
-            newPos = background.position;
-            newPos.x += tankMovmentSpeed;
-            [background setPosition:newPos];
-            break;
-
-        default:
-            NSLog(@"keyDown:'%@' keyCode: 0x%02X", theEvent.characters, theEvent.keyCode);
-            break;
-    }
-}
 
 - (void)mouseDown:(NSEvent *)theEvent {
     [self touchDownAtPoint:[theEvent locationInNode:self]];
