@@ -17,6 +17,7 @@
 		3D2AF6B525CF13C70046DC00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AF6B425CF13C70046DC00 /* main.m */; };
 		3D2AF6C225CF14F20046DC00 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6C125CF14F20046DC00 /* background.png */; };
 		3D2AF6ED25CF272A0046DC00 /* tank.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6EC25CF272A0046DC00 /* tank.png */; };
+		3D2AF6F525CF45670046DC00 /* obj1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6F425CF45670046DC00 /* obj1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		3D2AF6B625CF13C70046DC00 /* ShootTheTank.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShootTheTank.entitlements; sourceTree = "<group>"; };
 		3D2AF6C125CF14F20046DC00 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		3D2AF6EC25CF272A0046DC00 /* tank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tank.png; path = ../../../../Desktop/tank.png; sourceTree = "<group>"; };
+		3D2AF6F425CF45670046DC00 /* obj1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = obj1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			children = (
 				3D2AF6EC25CF272A0046DC00 /* tank.png */,
 				3D2AF6C125CF14F20046DC00 /* background.png */,
+				3D2AF6F425CF45670046DC00 /* obj1.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				3D2AF6AF25CF13C70046DC00 /* Assets.xcassets in Resources */,
 				3D2AF6A725CF13C40046DC00 /* Actions.sks in Resources */,
 				3D2AF6ED25CF272A0046DC00 /* tank.png in Resources */,
+				3D2AF6F525CF45670046DC00 /* obj1.png in Resources */,
 				3D2AF6B225CF13C70046DC00 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
