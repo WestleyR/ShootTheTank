@@ -15,8 +15,8 @@
 		3D2AF6AF25CF13C70046DC00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6AE25CF13C70046DC00 /* Assets.xcassets */; };
 		3D2AF6B225CF13C70046DC00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6B025CF13C70046DC00 /* Main.storyboard */; };
 		3D2AF6B525CF13C70046DC00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AF6B425CF13C70046DC00 /* main.m */; };
-		3D2AF6BF25CF143D0046DC00 /* tank.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6BE25CF143D0046DC00 /* tank.png */; };
 		3D2AF6C225CF14F20046DC00 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6C125CF14F20046DC00 /* background.png */; };
+		3D2AF6ED25CF272A0046DC00 /* tank.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6EC25CF272A0046DC00 /* tank.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,8 +34,8 @@
 		3D2AF6B325CF13C70046DC00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D2AF6B425CF13C70046DC00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3D2AF6B625CF13C70046DC00 /* ShootTheTank.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShootTheTank.entitlements; sourceTree = "<group>"; };
-		3D2AF6BE25CF143D0046DC00 /* tank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tank.png; sourceTree = "<group>"; };
 		3D2AF6C125CF14F20046DC00 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		3D2AF6EC25CF272A0046DC00 /* tank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tank.png; path = ../../../../Desktop/tank.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +89,7 @@
 		3D2AF6BD25CF14350046DC00 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				3D2AF6BE25CF143D0046DC00 /* tank.png */,
+				3D2AF6EC25CF272A0046DC00 /* tank.png */,
 				3D2AF6C125CF14F20046DC00 /* background.png */,
 			);
 			path = Images;
@@ -154,8 +154,8 @@
 				3D2AF6A525CF13C40046DC00 /* GameScene.sks in Resources */,
 				3D2AF6C225CF14F20046DC00 /* background.png in Resources */,
 				3D2AF6AF25CF13C70046DC00 /* Assets.xcassets in Resources */,
-				3D2AF6BF25CF143D0046DC00 /* tank.png in Resources */,
 				3D2AF6A725CF13C40046DC00 /* Actions.sks in Resources */,
+				3D2AF6ED25CF272A0046DC00 /* tank.png in Resources */,
 				3D2AF6B225CF13C70046DC00 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

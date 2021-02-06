@@ -8,41 +8,16 @@
 #import "GameScene.h"
 
 @implementation GameScene {
-    SKShapeNode *_spinnyNode;
     SKShapeNode* background;
-    SKLabelNode *_label;
+    SKShapeNode* tank;
+    NSArray* objects;
 }
 
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
 
-    //_label.alpha = 0.0;
-    //[_label runAction:[SKAction fadeInWithDuration:2.0]];
-
     background = (SKShapeNode *)[self childNodeWithName:@"//battleBackground"];
-
-    CGFloat w = (self.size.width + self.size.height) * 0.05;
-    
-    // Create shape node to use during mouse interaction
-//    _spinnyNode = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(w, w) cornerRadius:w * 0.3];
-    _spinnyNode = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(w, w) cornerRadius:w * 0.2];
-    _spinnyNode.lineWidth = 5.5;
-    
-//    [_spinnyNode runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:M_PI duration:1]]];
-//    [_spinnyNode runAction:[SKAction sequence:@[
-//                                                [SKAction waitForDuration:0.5],
-//                                                [SKAction fadeOutWithDuration:0.5],
-//                                                [SKAction removeFromParent],
-//                                                ]]];
-
-//    SKShapeNode *n = [_spinnyNode copy];
-    CGPoint pos = CGPointMake(5, 5);
-    _spinnyNode.position = pos;
-    _spinnyNode.strokeColor = [SKColor blueColor];
-    [self addChild:_spinnyNode];
-
-
-
+    tank = (SKShapeNode *)[self childNodeWithName:@"//tank"];
 
     // The background demon to move the map
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -76,6 +51,33 @@
                 });
             }
 
+            // Now set the tank rotation
+
+            int angle = (180 / M_PI * self->tank.zRotation);
+            if (movingUp) {
+                angle = 0;
+                if (movingLeft) {
+                    angle = 45;
+                } else if (movingRight) {
+                    angle = 345;
+                }
+            } else if (movingDown) {
+                angle = 180;
+                if (movingLeft) {
+                    angle = 145;
+                } else if (movingRight) {
+                    angle = 245;
+                }
+            } else if (movingLeft) {
+                angle = 90;
+            } else if (movingRight) {
+                angle = 270;
+            }
+            double rad = (angle * M_PI / 180);
+            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                [self->tank setZRotation:rad];
+            });
+
             sleep(0.1);
         }
     });
@@ -90,7 +92,6 @@
 }
 
 - (void)touchMovedToPoint:(CGPoint)pos {
-    _spinnyNode.position = pos;
 
 //    SKShapeNode *n = [_spinnyNode copy];
 //    n.position = pos;
