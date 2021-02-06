@@ -1,0 +1,5 @@
+.DS_Store
+
+# Ignore my cursor state
+ShootTheTank.xcworkspace/xcuserdata/westleyrose.xcuserdatad
+
