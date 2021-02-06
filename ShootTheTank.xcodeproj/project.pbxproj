@@ -1,0 +1,366 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3D2AF6A325CF13C40046DC00 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AF6A225CF13C40046DC00 /* AppDelegate.m */; };
+		3D2AF6A525CF13C40046DC00 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6A425CF13C40046DC00 /* GameScene.sks */; };
+		3D2AF6A725CF13C40046DC00 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6A625CF13C40046DC00 /* Actions.sks */; };
+		3D2AF6AA25CF13C40046DC00 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AF6A925CF13C40046DC00 /* GameScene.m */; };
+		3D2AF6AD25CF13C40046DC00 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AF6AC25CF13C40046DC00 /* ViewController.m */; };
+		3D2AF6AF25CF13C70046DC00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6AE25CF13C70046DC00 /* Assets.xcassets */; };
+		3D2AF6B225CF13C70046DC00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6B025CF13C70046DC00 /* Main.storyboard */; };
+		3D2AF6B525CF13C70046DC00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AF6B425CF13C70046DC00 /* main.m */; };
+		3D2AF6BF25CF143D0046DC00 /* tank.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6BE25CF143D0046DC00 /* tank.png */; };
+		3D2AF6C225CF14F20046DC00 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF6C125CF14F20046DC00 /* background.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3D2AF69E25CF13C40046DC00 /* ShootTheTank.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShootTheTank.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3D2AF6A125CF13C40046DC00 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		3D2AF6A225CF13C40046DC00 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		3D2AF6A425CF13C40046DC00 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		3D2AF6A625CF13C40046DC00 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		3D2AF6A825CF13C40046DC00 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		3D2AF6A925CF13C40046DC00 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		3D2AF6AB25CF13C40046DC00 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		3D2AF6AC25CF13C40046DC00 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		3D2AF6AE25CF13C70046DC00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3D2AF6B125CF13C70046DC00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3D2AF6B325CF13C70046DC00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D2AF6B425CF13C70046DC00 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3D2AF6B625CF13C70046DC00 /* ShootTheTank.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ShootTheTank.entitlements; sourceTree = "<group>"; };
+		3D2AF6BE25CF143D0046DC00 /* tank.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tank.png; sourceTree = "<group>"; };
+		3D2AF6C125CF14F20046DC00 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3D2AF69B25CF13C40046DC00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3D2AF69525CF13C40046DC00 = {
+			isa = PBXGroup;
+			children = (
+				3D2AF6A025CF13C40046DC00 /* ShootTheTank */,
+				3D2AF69F25CF13C40046DC00 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3D2AF69F25CF13C40046DC00 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF69E25CF13C40046DC00 /* ShootTheTank.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3D2AF6A025CF13C40046DC00 /* ShootTheTank */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF6A125CF13C40046DC00 /* AppDelegate.h */,
+				3D2AF6A225CF13C40046DC00 /* AppDelegate.m */,
+				3D2AF6A425CF13C40046DC00 /* GameScene.sks */,
+				3D2AF6A625CF13C40046DC00 /* Actions.sks */,
+				3D2AF6A825CF13C40046DC00 /* GameScene.h */,
+				3D2AF6A925CF13C40046DC00 /* GameScene.m */,
+				3D2AF6AB25CF13C40046DC00 /* ViewController.h */,
+				3D2AF6AC25CF13C40046DC00 /* ViewController.m */,
+				3D2AF6BD25CF14350046DC00 /* Images */,
+				3D2AF6AE25CF13C70046DC00 /* Assets.xcassets */,
+				3D2AF6B025CF13C70046DC00 /* Main.storyboard */,
+				3D2AF6B325CF13C70046DC00 /* Info.plist */,
+				3D2AF6B425CF13C70046DC00 /* main.m */,
+				3D2AF6B625CF13C70046DC00 /* ShootTheTank.entitlements */,
+			);
+			path = ShootTheTank;
+			sourceTree = "<group>";
+		};
+		3D2AF6BD25CF14350046DC00 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF6BE25CF143D0046DC00 /* tank.png */,
+				3D2AF6C125CF14F20046DC00 /* background.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3D2AF69D25CF13C40046DC00 /* ShootTheTank */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3D2AF6B925CF13C70046DC00 /* Build configuration list for PBXNativeTarget "ShootTheTank" */;
+			buildPhases = (
+				3D2AF69A25CF13C40046DC00 /* Sources */,
+				3D2AF69B25CF13C40046DC00 /* Frameworks */,
+				3D2AF69C25CF13C40046DC00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShootTheTank;
+			productName = ShootTheTank;
+			productReference = 3D2AF69E25CF13C40046DC00 /* ShootTheTank.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3D2AF69625CF13C40046DC00 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					3D2AF69D25CF13C40046DC00 = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = 3D2AF69925CF13C40046DC00 /* Build configuration list for PBXProject "ShootTheTank" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3D2AF69525CF13C40046DC00;
+			productRefGroup = 3D2AF69F25CF13C40046DC00 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3D2AF69D25CF13C40046DC00 /* ShootTheTank */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3D2AF69C25CF13C40046DC00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D2AF6A525CF13C40046DC00 /* GameScene.sks in Resources */,
+				3D2AF6C225CF14F20046DC00 /* background.png in Resources */,
+				3D2AF6AF25CF13C70046DC00 /* Assets.xcassets in Resources */,
+				3D2AF6BF25CF143D0046DC00 /* tank.png in Resources */,
+				3D2AF6A725CF13C40046DC00 /* Actions.sks in Resources */,
+				3D2AF6B225CF13C70046DC00 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3D2AF69A25CF13C40046DC00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3D2AF6AD25CF13C40046DC00 /* ViewController.m in Sources */,
+				3D2AF6AA25CF13C40046DC00 /* GameScene.m in Sources */,
+				3D2AF6B525CF13C70046DC00 /* main.m in Sources */,
+				3D2AF6A325CF13C40046DC00 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3D2AF6B025CF13C70046DC00 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3D2AF6B125CF13C70046DC00 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3D2AF6B725CF13C70046DC00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		3D2AF6B825CF13C70046DC00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		3D2AF6BA25CF13C70046DC00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShootTheTank/ShootTheTank.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 63H9H8GH3G;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = ShootTheTank/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.west.ShootTheTank;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		3D2AF6BB25CF13C70046DC00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ShootTheTank/ShootTheTank.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 63H9H8GH3G;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = ShootTheTank/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.west.ShootTheTank;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3D2AF69925CF13C40046DC00 /* Build configuration list for PBXProject "ShootTheTank" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D2AF6B725CF13C70046DC00 /* Debug */,
+				3D2AF6B825CF13C70046DC00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3D2AF6B925CF13C70046DC00 /* Build configuration list for PBXNativeTarget "ShootTheTank" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3D2AF6BA25CF13C70046DC00 /* Debug */,
+				3D2AF6BB25CF13C70046DC00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3D2AF69625CF13C40046DC00 /* Project object */;
+}
