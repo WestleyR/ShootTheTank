@@ -25,7 +25,7 @@
     
     // Create shape node to use during mouse interaction
 //    _spinnyNode = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(w, w) cornerRadius:w * 0.3];
-    _spinnyNode = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(w, w) cornerRadius:w * 0.6];
+    _spinnyNode = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(w, w) cornerRadius:w * 0.2];
     _spinnyNode.lineWidth = 5.5;
     
 //    [_spinnyNode runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:M_PI duration:1]]];
@@ -44,47 +44,40 @@
 
 
 
-
-
-
+    // The background demon to move the map
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        //Run your loop here
-             //stop your HUD here
-             //This is run on the main thread
-            NSLog(@"%s", __func__);
-
-            while (true) {
-                if (movingUp) {
-                    dispatch_async(dispatch_get_main_queue(), ^(void) {
-                        CGPoint newPos = self->background.position;
-                        newPos.y -= tankMovmentSpeed;
-                        [self->background setPosition:newPos];
-                    });
-                }
-                if (movingDown) {
-                    dispatch_async(dispatch_get_main_queue(), ^(void) {
-                        CGPoint newPos = self->background.position;
-                        newPos.y += tankMovmentSpeed;
-                        [self->background setPosition:newPos];
-                    });
-                }
-                if (movingLeft) {
-                    dispatch_async(dispatch_get_main_queue(), ^(void) {
-                        CGPoint newPos = self->background.position;
-                        newPos.x += tankMovmentSpeed;
-                        [self->background setPosition:newPos];
-                    });
-                }
-                if (movingRight) {
-                    dispatch_async(dispatch_get_main_queue(), ^(void) {
-                        CGPoint newPos = self->background.position;
-                        newPos.x -= tankMovmentSpeed;
-                        [self->background setPosition:newPos];
-                    });
-                }
-
-                sleep(0.1);
+        while (true) {
+            if (movingUp) {
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    CGPoint newPos = self->background.position;
+                    newPos.y -= tankMovmentSpeed;
+                    [self->background setPosition:newPos];
+                });
             }
+            if (movingDown) {
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    CGPoint newPos = self->background.position;
+                    newPos.y += tankMovmentSpeed;
+                    [self->background setPosition:newPos];
+                });
+            }
+            if (movingLeft) {
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    CGPoint newPos = self->background.position;
+                    newPos.x += tankMovmentSpeed;
+                    [self->background setPosition:newPos];
+                });
+            }
+            if (movingRight) {
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    CGPoint newPos = self->background.position;
+                    newPos.x -= tankMovmentSpeed;
+                    [self->background setPosition:newPos];
+                });
+            }
+
+            sleep(0.1);
+        }
     });
 }
 
@@ -119,8 +112,6 @@ bool movingRight;
 double tankMovmentSpeed = 0.002;
 
 - (void)keyDown:(NSEvent*)event {
-    NSLog(@"%s", __func__);
-
     switch (event.keyCode) {
         case 0x0D: // up
             movingUp = YES;
@@ -146,8 +137,6 @@ double tankMovmentSpeed = 0.002;
 }
 
 - (void)keyUp:(NSEvent*)event {
-    NSLog(@"%s", __func__);
-
     switch (event.keyCode) {
         case 0x0D: // up
             movingUp = NO;
