@@ -10,7 +10,7 @@
 @implementation GameScene {
     SKShapeNode* background;
     SKShapeNode* tank;
-    NSArray* objects;
+    NSMutableArray <SKShapeNode*> *objects;
 }
 
 - (void)didMoveToView:(SKView *)view {
@@ -59,7 +59,7 @@
                 if (movingLeft) {
                     angle = 45;
                 } else if (movingRight) {
-                    angle = 345;
+                    angle = 325;
                 }
             } else if (movingDown) {
                 angle = 180;
@@ -78,7 +78,8 @@
                 [self->tank setZRotation:rad];
             });
 
-            sleep(0.1);
+            //sleep(0.1);
+            [NSThread sleepForTimeInterval:0.01f];
         }
     });
 }
@@ -110,7 +111,7 @@ bool movingUp;
 bool movingDown;
 bool movingLeft;
 bool movingRight;
-double tankMovmentSpeed = 0.002;
+double tankMovmentSpeed = 2.12;
 
 - (void)keyDown:(NSEvent*)event {
     switch (event.keyCode) {
