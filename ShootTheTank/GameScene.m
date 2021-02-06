@@ -13,11 +13,13 @@
     NSMutableArray <SKShapeNode*> *objects;
 }
 
-int maxObjectCount = 2;
+int maxObjectCount = 1;
 int currentObjects = 0;
 
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
+
+    objects = [NSMutableArray new];
 
     background = (SKShapeNode *)[self childNodeWithName:@"//battleBackground"];
     tank = (SKShapeNode *)[self childNodeWithName:@"//tank"];
@@ -31,28 +33,23 @@ int currentObjects = 0;
 
                 SKShapeNode* obj = [[SKShapeNode alloc] init];
 
-                //CGFloat w = (self.size.width + self.size.height) * 0.05;
-                //obj = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(w, w) cornerRadius:w * 0.2];
-
-                CGSize objSize = CGSizeMake(100, 100);
+                CGSize objSize = CGSizeMake(80, 80);
 
                 obj = [SKShapeNode shapeNodeWithRectOfSize:objSize];
 
                 NSURL* imageURL = [NSBundle.mainBundle URLForResource:@"obj1" withExtension:@"png"];
                 NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
 
-
                 SKTexture* tx = [SKTexture textureWithImage:img];
                 [obj setFillTexture:tx];
                 [obj setFillColor:[NSColor whiteColor]];
                 [obj setStrokeColor:[NSColor blackColor]];
 
-                CGPoint objPos = CGPointMake(5, 5);
+                CGPoint objPos = [self ranPoint];
+                obj.position = objPos;
 
-                //obj.position = point;
-
-//                [self addChild:obj];
                 [self->background addChild:obj];
+                [self->objects addObject:obj];
                 currentObjects++;
             }
 
@@ -60,7 +57,7 @@ int currentObjects = 0;
             float speed = tankMovmentSpeed;
 
             if ((movingUp + movingDown + movingLeft + movingRight) >= 2) {
-                speed /= 2;
+                speed /= 1.25;
             }
 
             if (movingUp) {
@@ -119,9 +116,57 @@ int currentObjects = 0;
                 [self->tank setZRotation:rad];
             });
 
+
+            // Now check if the tank colided with another object
+            for (SKShapeNode* o in self->objects) {
+                int crashRange = 80;
+
+                int x = o.position.x;
+                int y = o.position.y;
+
+                int tx = self->background.position.x;
+                int ty = self->background.position.y;
+
+                if (x < 0) x = abs(x);
+                if (y < 0) y = abs(y);
+                if (tx < 0) tx = abs(tx);
+                if (ty < 0) ty = abs(ty);
+                if (x > 0) x = -abs(x);
+                if (y > 0) y = -abs(y);
+                if (tx > 0) tx = -abs(tx);
+                if (ty > 0) ty = -abs(ty);
+
+
+                if ((inRange(x-crashRange, x+crashRange, tx)) && (inRange(tx-crashRange, tx+crashRange, x))) {
+                    if ((inRange(y-crashRange, y+crashRange, ty)) && (inRange(ty-crashRange, ty+crashRange, y))) {
+                        NSLog(@"CRASH");
+                    }
+                }
+            }
+
+
             [NSThread sleepForTimeInterval:0.01f];
         }
     });
+}
+
+bool inRange(int low, int high, int x) {
+    return ((x-low) <= (high-low));
+}
+
+- (int)ranNumFrom:(int)min to:(int)max {
+    return min + arc4random_uniform((uint32_t)(max - min + 1));
+}
+
+- (NSPoint)ranPoint {
+    NSPoint p;
+    p.x = [self ranNumFrom:-1024 to:1024];
+    p.y = [self ranNumFrom:-1024 to:1024];
+
+//    p.x = 500;
+//    p.y = 500;
+
+    return p;
 }
 
 
