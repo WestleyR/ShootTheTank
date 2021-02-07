@@ -42,17 +42,15 @@ dispatch_queue_t arrayQueue;
 
                 SKShapeNode* obj = [[SKShapeNode alloc] init];
 
-                CGSize objSize = CGSizeMake(80, 80);
+                CGSize objSize = CGSizeMake(100, 100);
 
                 obj = [SKShapeNode shapeNodeWithRectOfSize:objSize];
 
-                NSURL* imageURL = [NSBundle.mainBundle URLForResource:@"obj1" withExtension:@"png"];
-                NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
-
-                SKTexture* tx = [SKTexture textureWithImage:img];
+                SKTexture* tx = [SKTexture textureWithImage:[self getRandomeObjectImage]];
                 [obj setFillTexture:tx];
                 [obj setFillColor:[NSColor whiteColor]];
-                [obj setStrokeColor:[NSColor blackColor]];
+                obj.lineWidth = 0;
+                //[obj setStrokeColor:[NSColor blackColor]];
 
                 CGPoint objPos = [self ranPoint];
                 obj.position = objPos;
@@ -209,6 +207,15 @@ dispatch_queue_t arrayQueue;
             [NSThread sleepForTimeInterval:0.01f];
         }
     });
+}
+
+- (NSImage*)getRandomeObjectImage {
+    NSArray* images = @[@"obj1", @"tree"];
+
+    int ranIndex = [self ranNumFrom:0 to:1];
+
+    NSURL* imageURL = [NSBundle.mainBundle URLForResource:images[ranIndex] withExtension:@"png"];
+    return [[NSImage alloc] initWithContentsOfURL:imageURL];
 }
 
 - (int)ranNumFrom:(int)min to:(int)max {
