@@ -13,7 +13,7 @@
     NSMutableArray <SKShapeNode*> *objects;
 }
 
-int maxObjectCount = 1;
+int maxObjectCount = 40;
 int currentObjects = 0;
 
 - (void)didMoveToView:(SKView *)view {
@@ -118,8 +118,8 @@ int currentObjects = 0;
 
 
             // Now check if the tank colided with another object
-            for (SKShapeNode* o in self->objects) {
-                int crashRange = 80;
+            for (SKShapeNode* o in [self->objects copy]) {
+                int crashRange = 70;
 
                 int x = o.position.x;
                 int y = o.position.y;
@@ -127,31 +127,35 @@ int currentObjects = 0;
                 int tx = self->background.position.x;
                 int ty = self->background.position.y;
 
-                if (x < 0) x = abs(x);
-                if (y < 0) y = abs(y);
-                if (tx < 0) tx = abs(tx);
-                if (ty < 0) ty = abs(ty);
-                if (x > 0) x = -abs(x);
-                if (y > 0) y = -abs(y);
-                if (tx > 0) tx = -abs(tx);
-                if (ty > 0) ty = -abs(ty);
+                if (x < 0) {
+                    x = abs(x);
+                } else {
+                    x = -abs(x);
+                }
+                if (y < 0) {
+                    y = abs(y);
+                } else {
+                    y = -abs(y);
+                }
 
+                //NSLog(@"TANK: %d->%d", tx, ty);
+                //NSLog(@"OBJ: %d->%d", x, y);
 
-                if ((inRange(x-crashRange, x+crashRange, tx)) && (inRange(tx-crashRange, tx+crashRange, x))) {
-                    if ((inRange(y-crashRange, y+crashRange, ty)) && (inRange(ty-crashRange, ty+crashRange, y))) {
-                        NSLog(@"CRASH");
-                    }
+                int xprox = abs(tx - x);
+                int yprox = abs(ty - y);
+
+                //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
+                if (xprox <= crashRange && yprox <= crashRange) {
+                    NSLog(@"CRASH");
+                    [o removeFromParent];
+                    [self->objects removeObject:o];
+                    currentObjects--;
                 }
             }
-
 
             [NSThread sleepForTimeInterval:0.01f];
         }
     });
-}
-
-bool inRange(int low, int high, int x) {
-    return ((x-low) <= (high-low));
 }
 
 - (int)ranNumFrom:(int)min to:(int)max {
