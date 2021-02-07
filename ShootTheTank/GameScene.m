@@ -14,6 +14,7 @@
 
 NSMutableArray <SKShapeNode*>* objects;
 NSMutableArray <SKShapeNode*>* bullets;
+NSArray <SKTexture*>* fireFrames;
 
 int maxObjectCount = 40;
 int currentObjects = 0;
@@ -22,6 +23,17 @@ dispatch_queue_t arrayQueue;
 
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
+
+    // Load the fire frames
+    NSMutableArray* frames = [NSMutableArray new];
+    for (int i = 1; i <= 3; i++) {
+        NSString *texture = [NSString stringWithFormat:@"fire_%d", i];
+        NSURL* imageURL = [NSBundle.mainBundle URLForResource:texture withExtension:@"png"];
+        NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
+        SKTexture* tx = [SKTexture textureWithImage:img];
+        [frames addObject:tx];
+    }
+    fireFrames = frames;
 
     arrayQueue = dispatch_queue_create("com.west.arrayThread", NULL);
 
@@ -203,7 +215,7 @@ dispatch_queue_t arrayQueue;
                             currentObjects--;
 
 //                            SKAction* animate = [SKAction repeatActionForever:[SKAction animateWithTextures:fireAnimation timePerFrame:0.2]];
-                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                            dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
                                 SKShapeNode* fire = [[SKShapeNode alloc] init];
                                 CGSize objSize = CGSizeMake([self ranNumFrom:250 to:550], [self ranNumFrom:250 to:550]);
                                 fire = [SKShapeNode shapeNodeWithRectOfSize:objSize];
@@ -211,13 +223,9 @@ dispatch_queue_t arrayQueue;
                                 [self->background addChild:fire];
 
                                 while (YES) {
-                                    for (int i = 1; i <= 3; ++i) {
+                                    for (int i = 0; i < fireFrames.count; ++i) {
                                         dispatch_async(dispatch_get_main_queue(), ^(void) {
-                                            NSString *texture = [NSString stringWithFormat:@"fire_%d", i];
-                                            NSURL* imageURL = [NSBundle.mainBundle URLForResource:texture withExtension:@"png"];
-                                            NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
-                                            SKTexture* tx = [SKTexture textureWithImage:img];
-                                            [fire setFillTexture:tx];
+                                            [fire setFillTexture:fireFrames[i]];
                                             [fire setFillColor:[NSColor whiteColor]];
                                             fire.lineWidth = 0;
                                         });
