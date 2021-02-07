@@ -201,6 +201,31 @@ dispatch_queue_t arrayQueue;
                             [bullets removeObject:b];
                             [b removeFromParent];
                             currentObjects--;
+
+//                            SKAction* animate = [SKAction repeatActionForever:[SKAction animateWithTextures:fireAnimation timePerFrame:0.2]];
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                SKShapeNode* fire = [[SKShapeNode alloc] init];
+                                CGSize objSize = CGSizeMake([self ranNumFrom:250 to:550], [self ranNumFrom:250 to:550]);
+                                fire = [SKShapeNode shapeNodeWithRectOfSize:objSize];
+                                fire.position = o.position;
+                                [self->background addChild:fire];
+
+                                while (YES) {
+                                    for (int i = 1; i <= 3; ++i) {
+                                        dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                            NSString *texture = [NSString stringWithFormat:@"fire_%d", i];
+                                            NSURL* imageURL = [NSBundle.mainBundle URLForResource:texture withExtension:@"png"];
+                                            NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
+                                            SKTexture* tx = [SKTexture textureWithImage:img];
+                                            [fire setFillTexture:tx];
+                                            [fire setFillColor:[NSColor whiteColor]];
+                                            fire.lineWidth = 0;
+                                        });
+                                        [NSThread sleepForTimeInterval:0.1];
+                                    }
+                                }
+                            });
+
                         }
                     }
                 }
@@ -355,16 +380,15 @@ NSPoint mouseDownPos;
     [self stopFireing];
 }
 
-- (void)touchMovedToPoint:(CGPoint)pos {
+- (void)touchDownAtPoint:(CGPoint)pos {
+    [self shootBullet:pos];
+ }
 
+- (void)touchMovedToPoint:(CGPoint)pos {
 //    SKShapeNode *n = [_spinnyNode copy];
 //    n.position = pos;
 //    n.strokeColor = [SKColor blueColor];
 //    [self addChild:n];
-}
-
-- (void)touchDownAtPoint:(CGPoint)pos {
-    [self shootBullet:pos];
 }
 
 - (void)touchUpAtPoint:(CGPoint)pos {
