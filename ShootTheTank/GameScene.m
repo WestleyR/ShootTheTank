@@ -11,6 +11,8 @@
     SKShapeNode* background;
     SKShapeNode* tank;
     NSMutableArray <SKShapeNode*> *objects;
+
+    SKShapeNode* bullet;
 }
 
 int maxObjectCount = 40;
@@ -167,14 +169,41 @@ int currentObjects = 0;
     p.x = [self ranNumFrom:-1024 to:1024];
     p.y = [self ranNumFrom:-1024 to:1024];
 
-//    p.x = 500;
-//    p.y = 500;
-
     return p;
 }
 
 
 - (void)touchDownAtPoint:(CGPoint)pos {
+
+
+    CGPoint startPos = background.position;
+    if (startPos.x < 0) {
+        startPos.x = fabs(startPos.x);
+    } else {
+        startPos.x = -fabs(startPos.x);
+    }
+    if (startPos.y < 0) {
+        startPos.y = fabs(startPos.y);
+    } else {
+        startPos.y = -fabs(startPos.y);
+    }
+
+    bullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
+    bullet.lineWidth = 15;
+    bullet.strokeColor = [NSColor blackColor];
+
+    [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
+    [bullet runAction:[SKAction sequence:@[
+        [SKAction waitForDuration:2.5],
+        [SKAction fadeOutWithDuration:0.1],
+        [SKAction removeFromParent],
+    ]]];
+
+    bullet.position = startPos;
+
+    [background addChild:bullet];
+
+
 //    SKShapeNode *n = [_spinnyNode copy];
 //    n.position = pos;
 //    n.strokeColor = [SKColor greenColor];
