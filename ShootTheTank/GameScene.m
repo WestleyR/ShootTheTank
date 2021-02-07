@@ -211,7 +211,7 @@ dispatch_queue_t arrayQueue;
 }
 
 - (NSImage*)getRandomeObjectImage {
-    NSArray* images = @[@"obj1", @"tree", @"bush", @"bushytree"];
+    NSArray* images = @[@"obj1", @"tree", @"bush", @"bushytree", @"deadTree"];
 
     int ranIndex = [self ranNumFrom:0 to:(int)images.count-1];
 

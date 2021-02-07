@@ -22,6 +22,7 @@
 		3D2AF70625CF8E230046DC00 /* battle_grounds.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF70525CF8E230046DC00 /* battle_grounds.jpg */; };
 		3D2AF70925CF8E650046DC00 /* bush.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF70825CF8E650046DC00 /* bush.png */; };
 		3D2AF70C25CF8FC10046DC00 /* bushytree.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF70B25CF8FC10046DC00 /* bushytree.png */; };
+		3D2AF70F25CF90580046DC00 /* deadTree.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF70E25CF90580046DC00 /* deadTree.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		3D2AF70525CF8E230046DC00 /* battle_grounds.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = battle_grounds.jpg; sourceTree = "<group>"; };
 		3D2AF70825CF8E650046DC00 /* bush.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bush.png; sourceTree = "<group>"; };
 		3D2AF70B25CF8FC10046DC00 /* bushytree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bushytree.png; sourceTree = "<group>"; };
+		3D2AF70E25CF90580046DC00 /* deadTree.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deadTree.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				3D2AF70825CF8E650046DC00 /* bush.png */,
 				3D2AF70525CF8E230046DC00 /* battle_grounds.jpg */,
 				3D2AF70B25CF8FC10046DC00 /* bushytree.png */,
+				3D2AF70E25CF90580046DC00 /* deadTree.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D2AF6A525CF13C40046DC00 /* GameScene.sks in Resources */,
+				3D2AF70F25CF90580046DC00 /* deadTree.png in Resources */,
 				3D2AF70925CF8E650046DC00 /* bush.png in Resources */,
 				3D2AF6C225CF14F20046DC00 /* background.png in Resources */,
 				3D2AF70625CF8E230046DC00 /* battle_grounds.jpg in Resources */,
