@@ -159,8 +159,10 @@ dispatch_queue_t arrayQueue;
                 if (xprox <= crashRange && yprox <= crashRange) {
                     NSLog(@"CRASH");
 
-                    [o removeFromParent];
-                    [objects removeObject:o];
+                    dispatch_async(arrayQueue, ^{
+                        [o removeFromParent];
+                        [objects removeObject:o];
+                    });
                     currentObjects--;
                 }
             }
@@ -209,9 +211,9 @@ dispatch_queue_t arrayQueue;
 }
 
 - (NSImage*)getRandomeObjectImage {
-    NSArray* images = @[@"obj1", @"tree"];
+    NSArray* images = @[@"obj1", @"tree", @"bush", @"bushytree"];
 
-    int ranIndex = [self ranNumFrom:0 to:1];
+    int ranIndex = [self ranNumFrom:0 to:(int)images.count-1];
 
     NSURL* imageURL = [NSBundle.mainBundle URLForResource:images[ranIndex] withExtension:@"png"];
     return [[NSImage alloc] initWithContentsOfURL:imageURL];
