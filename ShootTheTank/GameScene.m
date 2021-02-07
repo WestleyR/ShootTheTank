@@ -16,7 +16,7 @@ NSMutableArray <SKShapeNode*>* objects;
 NSMutableArray <SKShapeNode*>* bullets;
 NSArray <SKTexture*>* fireFrames;
 
-int maxObjectCount = 40;
+int maxObjectCount = 400;
 int currentObjects = 0;
 
 dispatch_queue_t arrayQueue;
@@ -222,7 +222,7 @@ dispatch_queue_t arrayQueue;
                                 fire.position = o.position;
                                 [self->background addChild:fire];
 
-                                while (YES) {
+                                for (int f = 0; f < 30; f++) {
                                     for (int i = 0; i < fireFrames.count; ++i) {
                                         dispatch_async(dispatch_get_main_queue(), ^(void) {
                                             [fire setFillTexture:fireFrames[i]];
@@ -232,6 +232,8 @@ dispatch_queue_t arrayQueue;
                                         [NSThread sleepForTimeInterval:0.1];
                                     }
                                 }
+                                // TODO: Need to modify all arrays on one thread, maybe the main thread or another
+                                //[fire removeFromParent];
                             });
 
                         }
