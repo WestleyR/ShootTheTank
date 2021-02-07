@@ -42,7 +42,7 @@ dispatch_queue_t arrayQueue;
 
                 SKShapeNode* obj = [[SKShapeNode alloc] init];
 
-                CGSize objSize = CGSizeMake(100, 100);
+                CGSize objSize = CGSizeMake([self ranNumFrom:80 to:250], [self ranNumFrom:80 to:250]);
 
                 obj = [SKShapeNode shapeNodeWithRectOfSize:objSize];
 
@@ -50,7 +50,6 @@ dispatch_queue_t arrayQueue;
                 [obj setFillTexture:tx];
                 [obj setFillColor:[NSColor whiteColor]];
                 obj.lineWidth = 0;
-                //[obj setStrokeColor:[NSColor blackColor]];
 
                 CGPoint objPos = [self ranPoint];
                 obj.position = objPos;
@@ -224,8 +223,8 @@ dispatch_queue_t arrayQueue;
 
 - (NSPoint)ranPoint {
     NSPoint p;
-    p.x = [self ranNumFrom:-1024 to:1024];
-    p.y = [self ranNumFrom:-1024 to:1024];
+    p.x = [self ranNumFrom:-2000 to:2000]; // half of the battle ground res
+    p.y = [self ranNumFrom:-2000 to:2000];
 
     return p;
 }
