@@ -15,7 +15,7 @@
 NSMutableArray <SKShapeNode*>* objects;
 NSMutableArray <SKShapeNode*>* bullets;
 
-int maxObjectCount = 100;
+int maxObjectCount = 40;
 int currentObjects = 0;
 
 dispatch_queue_t arrayQueue;
@@ -172,6 +172,43 @@ dispatch_queue_t arrayQueue;
             [NSThread sleepForTimeInterval:0.01f];
         }
     });
+
+    // Bullet tracker
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        while (YES) {
+            dispatch_async(arrayQueue, ^{
+                // Now check if the tank colided with another object
+                for (SKShapeNode* o in [objects copy]) {
+                    if (o == nil) break;
+                    for (SKShapeNode* b in [bullets copy]) {
+                        if (b == nil) break;
+
+                        int crashRange = 40;
+
+                        int x = o.position.x;
+                        int y = o.position.y;
+
+                        int bx = b.position.x;
+                        int by = b.position.y;
+
+                        int xprox = abs(bx - x);
+                        int yprox = abs(by - y);
+
+                        if (xprox <= crashRange && yprox <= crashRange) {
+                            NSLog(@"CRASH");
+
+                            [o removeFromParent];
+                            [objects removeObject:o];
+                            [bullets removeObject:b];
+                            [b removeFromParent];
+                            currentObjects--;
+                        }
+                    }
+                }
+            });
+            [NSThread sleepForTimeInterval:0.01f];
+        }
+    });
 }
 
 - (int)ranNumFrom:(int)min to:(int)max {
@@ -186,8 +223,7 @@ dispatch_queue_t arrayQueue;
     return p;
 }
 
-
-- (void)touchDownAtPoint:(CGPoint)pos {
+- (void)shootBullet:(CGPoint)pos {
     CGPoint startPos = background.position;
     if (startPos.x < 0) {
         startPos.x = fabs(startPos.x);
@@ -204,16 +240,12 @@ dispatch_queue_t arrayQueue;
     bullet.lineWidth = 15;
     bullet.strokeColor = [NSColor blackColor];
 
-    __block bool isAlive = YES;
-
     [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
     [bullet runAction:[SKAction sequence:@[
                        [SKAction waitForDuration:2.5],
                        [SKAction fadeOutWithDuration:0.1],
                        [SKAction removeFromParent]]]
            completion:^{
-        //isAlive = NO;
-
         dispatch_async(arrayQueue, ^{
             [bullets removeObject:bullet];
         });
@@ -221,74 +253,10 @@ dispatch_queue_t arrayQueue;
 
     bullet.position = startPos;
 
-    [background addChild:bullet];
     dispatch_async(arrayQueue, ^{
+        [self->background addChild:bullet];
         [bullets addObject:bullet];
     });
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        while (YES) {
-    //        NSLog(@"BULLET: %d->%d", (int)bullet.position.x, (int)bullet.position.y);
-
-            dispatch_async(arrayQueue, ^{
-
-                // Now check if the tank colided with another object
-                for (SKShapeNode* o in [objects copy]) {
-                    if (o == nil) break;
-                    for (SKShapeNode* b in [bullets copy]) {
-                        if (b == nil) break;
-
-                        int crashRange = 70;
-
-                        int x = o.position.x;
-                        int y = o.position.y;
-
-                        int bx = b.position.x;
-                        int by = b.position.y;
-
-                        //NSLog(@"TANK: %d->%d", bx, by);
-                        //(@"OBJ: %d->%d", x, y);
-
-                        int xprox = abs(bx - x);
-                        int yprox = abs(by - y);
-
-                        //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
-                        if (xprox <= crashRange && yprox <= crashRange) {
-                            NSLog(@"CRASH");
-
-                            [o removeFromParent];
-                            [objects removeObject:o];
-                            [bullets removeObject:b];
-                            [b removeFromParent];
-                            currentObjects--;
-                            //isAlive = NO;
-                        }
-                    }
-                }
-            });
-            [NSThread sleepForTimeInterval:0.01f];
-        }
-    });
-
-//    SKShapeNode *n = [_spinnyNode copy];
-//    n.position = pos;
-//    n.strokeColor = [SKColor greenColor];
-//    [self addChild:n];
-}
-
-- (void)touchMovedToPoint:(CGPoint)pos {
-
-//    SKShapeNode *n = [_spinnyNode copy];
-//    n.position = pos;
-//    n.strokeColor = [SKColor blueColor];
-//    [self addChild:n];
-}
-
-- (void)touchUpAtPoint:(CGPoint)pos {
-//    SKShapeNode *n = [_spinnyNode copy];
-//    n.position = pos;
-//    n.strokeColor = [SKColor redColor];
-//    [self addChild:n];
 }
 
 bool movingUp;
@@ -346,18 +314,54 @@ double tankMovmentSpeed = 5.12;
     }
 }
 
+NSTimer* autoShootTimer;
 
+- (void)startFireing:(CGPoint)pos {
+    autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer *timer) {
+        [self shootBullet:pos];
+    }];
+}
+
+- (void)stopFireing {
+    [autoShootTimer invalidate];
+}
 
 - (void)mouseDown:(NSEvent *)theEvent {
     [self touchDownAtPoint:[theEvent locationInNode:self]];
-}
-- (void)mouseDragged:(NSEvent *)theEvent {
-    [self touchMovedToPoint:[theEvent locationInNode:self]];
-}
-- (void)mouseUp:(NSEvent *)theEvent {
-   // [self touchUpAtPoint:[theEvent locationInNode:self]];
+
+    //[self startFireing:[theEvent locationInNode:self]];
 }
 
+- (void)mouseDragged:(NSEvent *)theEvent {
+//    [self touchMovedToPoint:[theEvent locationInNode:self]];
+//    [self startFireing:[theEvent locationInNode:self]];
+    [self shootBullet:[theEvent locationInNode:self]];
+}
+
+- (void)mouseUp:(NSEvent *)theEvent {
+   // [self touchUpAtPoint:[theEvent locationInNode:self]];
+
+    [self stopFireing];
+}
+
+- (void)touchMovedToPoint:(CGPoint)pos {
+
+//    SKShapeNode *n = [_spinnyNode copy];
+//    n.position = pos;
+//    n.strokeColor = [SKColor blueColor];
+//    [self addChild:n];
+}
+
+- (void)touchDownAtPoint:(CGPoint)pos {
+    [self shootBullet:pos];
+}
+
+- (void)touchUpAtPoint:(CGPoint)pos {
+//    SKShapeNode *n = [_spinnyNode copy];
+//    n.position = pos;
+//    n.strokeColor = [SKColor redColor];
+//    [self addChild:n];
+}
 
 -(void)update:(CFTimeInterval)currentTime {
     // Called before each frame is rendered
