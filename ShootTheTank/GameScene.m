@@ -315,10 +315,11 @@ double tankMovmentSpeed = 5.12;
 }
 
 NSTimer* autoShootTimer;
+NSPoint mouseDownPos;
 
-- (void)startFireing:(CGPoint)pos {
-    autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer *timer) {
-        [self shootBullet:pos];
+- (void)startFireing {
+    autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:YES block:^(NSTimer *timer) {
+        [self shootBullet:mouseDownPos];
     }];
 }
 
@@ -329,13 +330,15 @@ NSTimer* autoShootTimer;
 - (void)mouseDown:(NSEvent *)theEvent {
     [self touchDownAtPoint:[theEvent locationInNode:self]];
 
-    //[self startFireing:[theEvent locationInNode:self]];
+    mouseDownPos = [theEvent locationInNode:self];
+    [self startFireing];
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent {
 //    [self touchMovedToPoint:[theEvent locationInNode:self]];
 //    [self startFireing:[theEvent locationInNode:self]];
-    [self shootBullet:[theEvent locationInNode:self]];
+    mouseDownPos = [theEvent locationInNode:self];
+//    [self shootBullet:[theEvent locationInNode:self]];
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {
