@@ -10,18 +10,18 @@
 @implementation GameScene {
     SKShapeNode* background;
     SKShapeNode* tank;
-    NSMutableArray <SKShapeNode*> *objects;
-
-    SKShapeNode* bullet;
+    NSMutableArray <SKShapeNode*>* objects;
+    NSMutableArray <SKShapeNode*>* bullets;
 }
 
-int maxObjectCount = 40;
+int maxObjectCount = 100;
 int currentObjects = 0;
 
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
 
     objects = [NSMutableArray new];
+    bullets = [NSMutableArray new];
 
     background = (SKShapeNode *)[self childNodeWithName:@"//battleBackground"];
     tank = (SKShapeNode *)[self childNodeWithName:@"//tank"];
@@ -50,8 +50,10 @@ int currentObjects = 0;
                 CGPoint objPos = [self ranPoint];
                 obj.position = objPos;
 
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
                 [self->background addChild:obj];
                 [self->objects addObject:obj];
+                });
                 currentObjects++;
             }
 
@@ -188,21 +190,64 @@ int currentObjects = 0;
         startPos.y = -fabs(startPos.y);
     }
 
-    bullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
+    SKShapeNode* bullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
     bullet.lineWidth = 15;
     bullet.strokeColor = [NSColor blackColor];
 
+    __block bool isAlive = YES;
+
     [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
     [bullet runAction:[SKAction sequence:@[
-        [SKAction waitForDuration:2.5],
-        [SKAction fadeOutWithDuration:0.1],
-        [SKAction removeFromParent],
-    ]]];
+                       [SKAction waitForDuration:2.5],
+                       [SKAction fadeOutWithDuration:0.1],
+                       [SKAction removeFromParent]]]
+           completion:^{
+        //isAlive = NO;
+        [self->bullets removeObject:bullet];
+    }];
 
     bullet.position = startPos;
 
     [background addChild:bullet];
+    [bullets addObject:bullet];
 
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        while (YES) {
+//            NSLog(@"BULLET: %d->%d", (int)bullet.position.x, (int)bullet.position.y);
+
+            // Now check if the tank colided with another object
+            for (SKShapeNode* o in [self->objects copy]) {
+                for (SKShapeNode* b in [self->bullets copy]) {
+                    int crashRange = 70;
+                    NSLog(@"LOOP");
+
+                    int x = o.position.x;
+                    int y = o.position.y;
+
+                    int bx = b.position.x;
+                    int by = b.position.y;
+
+                    //NSLog(@"TANK: %d->%d", bx, by);
+                    //(@"OBJ: %d->%d", x, y);
+
+                    int xprox = abs(bx - x);
+                    int yprox = abs(by - y);
+
+                    //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
+                    if (xprox <= crashRange && yprox <= crashRange) {
+                        NSLog(@"CRASH");
+                        [o removeFromParent];
+                        [self->objects removeObject:o];
+                        [self->bullets removeObject:b];
+                        currentObjects--;
+                        [b removeFromParent];
+                        isAlive = NO;
+                    }
+                }
+            }
+            [NSThread sleepForTimeInterval:0.01f];
+        }
+    });
 
 //    SKShapeNode *n = [_spinnyNode copy];
 //    n.position = pos;
