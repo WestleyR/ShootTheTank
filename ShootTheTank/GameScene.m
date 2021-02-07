@@ -10,18 +10,25 @@
 @implementation GameScene {
     SKShapeNode* background;
     SKShapeNode* tank;
-    NSMutableArray <SKShapeNode*>* objects;
-    NSMutableArray <SKShapeNode*>* bullets;
 }
+
+NSMutableArray <SKShapeNode*>* objects;
+NSMutableArray <SKShapeNode*>* bullets;
 
 int maxObjectCount = 100;
 int currentObjects = 0;
 
+dispatch_queue_t arrayQueue;
+
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
 
-    objects = [NSMutableArray new];
-    bullets = [NSMutableArray new];
+    arrayQueue = dispatch_queue_create("com.west.arrayThread", NULL);
+
+    dispatch_async(arrayQueue, ^{
+        objects = [NSMutableArray new];
+        bullets = [NSMutableArray new];
+    });
 
     background = (SKShapeNode *)[self childNodeWithName:@"//battleBackground"];
     tank = (SKShapeNode *)[self childNodeWithName:@"//tank"];
@@ -50,9 +57,9 @@ int currentObjects = 0;
                 CGPoint objPos = [self ranPoint];
                 obj.position = objPos;
 
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                [self->background addChild:obj];
-                [self->objects addObject:obj];
+                dispatch_async(arrayQueue, ^{
+                    [self->background addChild:obj];
+                    [objects addObject:obj];
                 });
                 currentObjects++;
             }
@@ -122,7 +129,10 @@ int currentObjects = 0;
 
 
             // Now check if the tank colided with another object
-            for (SKShapeNode* o in [self->objects copy]) {
+            dispatch_async(arrayQueue, ^{
+            for (SKShapeNode* o in [objects copy]) {
+                if (o == nil) break;
+
                 int crashRange = 70;
 
                 int x = o.position.x;
@@ -151,11 +161,13 @@ int currentObjects = 0;
                 //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
                 if (xprox <= crashRange && yprox <= crashRange) {
                     NSLog(@"CRASH");
+
                     [o removeFromParent];
-                    [self->objects removeObject:o];
+                    [objects removeObject:o];
                     currentObjects--;
                 }
             }
+            });
 
             [NSThread sleepForTimeInterval:0.01f];
         }
@@ -176,8 +188,6 @@ int currentObjects = 0;
 
 
 - (void)touchDownAtPoint:(CGPoint)pos {
-
-
     CGPoint startPos = background.position;
     if (startPos.x < 0) {
         startPos.x = fabs(startPos.x);
@@ -203,48 +213,59 @@ int currentObjects = 0;
                        [SKAction removeFromParent]]]
            completion:^{
         //isAlive = NO;
-        [self->bullets removeObject:bullet];
+
+        dispatch_async(arrayQueue, ^{
+            [bullets removeObject:bullet];
+        });
     }];
 
     bullet.position = startPos;
 
     [background addChild:bullet];
-    [bullets addObject:bullet];
+    dispatch_async(arrayQueue, ^{
+        [bullets addObject:bullet];
+    });
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while (YES) {
-//            NSLog(@"BULLET: %d->%d", (int)bullet.position.x, (int)bullet.position.y);
+    //        NSLog(@"BULLET: %d->%d", (int)bullet.position.x, (int)bullet.position.y);
 
-            // Now check if the tank colided with another object
-            for (SKShapeNode* o in [self->objects copy]) {
-                for (SKShapeNode* b in [self->bullets copy]) {
-                    int crashRange = 70;
-                    NSLog(@"LOOP");
+            dispatch_async(arrayQueue, ^{
 
-                    int x = o.position.x;
-                    int y = o.position.y;
+                // Now check if the tank colided with another object
+                for (SKShapeNode* o in [objects copy]) {
+                    if (o == nil) break;
+                    for (SKShapeNode* b in [bullets copy]) {
+                        if (b == nil) break;
 
-                    int bx = b.position.x;
-                    int by = b.position.y;
+                        int crashRange = 70;
 
-                    //NSLog(@"TANK: %d->%d", bx, by);
-                    //(@"OBJ: %d->%d", x, y);
+                        int x = o.position.x;
+                        int y = o.position.y;
 
-                    int xprox = abs(bx - x);
-                    int yprox = abs(by - y);
+                        int bx = b.position.x;
+                        int by = b.position.y;
 
-                    //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
-                    if (xprox <= crashRange && yprox <= crashRange) {
-                        NSLog(@"CRASH");
-                        [o removeFromParent];
-                        [self->objects removeObject:o];
-                        [self->bullets removeObject:b];
-                        currentObjects--;
-                        [b removeFromParent];
-                        isAlive = NO;
+                        //NSLog(@"TANK: %d->%d", bx, by);
+                        //(@"OBJ: %d->%d", x, y);
+
+                        int xprox = abs(bx - x);
+                        int yprox = abs(by - y);
+
+                        //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
+                        if (xprox <= crashRange && yprox <= crashRange) {
+                            NSLog(@"CRASH");
+
+                            [o removeFromParent];
+                            [objects removeObject:o];
+                            [bullets removeObject:b];
+                            [b removeFromParent];
+                            currentObjects--;
+                            //isAlive = NO;
+                        }
                     }
                 }
-            }
+            });
             [NSThread sleepForTimeInterval:0.01f];
         }
     });
