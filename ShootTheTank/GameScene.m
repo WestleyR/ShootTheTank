@@ -10,6 +10,7 @@
 @implementation GameScene {
     SKShapeNode* background;
     SKShapeNode* tank;
+    SKShapeNode* otherTank;
 }
 
 NSMutableArray <SKShapeNode*>* objects;
@@ -20,6 +21,7 @@ int maxObjectCount = 40;
 int currentObjects = 0;
 
 NSURL* multiPlayerDir = NULL;
+NSURL* multiPlayerMyFile = NULL;
 
 dispatch_queue_t arrayQueue;
 
@@ -30,6 +32,11 @@ dispatch_queue_t arrayQueue;
     NSURL *furl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"foobar"]];
     [[NSFileManager defaultManager] createDirectoryAtURL:furl withIntermediateDirectories:YES attributes:nil error:nil];
     multiPlayerDir = furl;
+    multiPlayerMyFile = [multiPlayerDir URLByAppendingPathComponent:@"tank"];
+
+    [[NSFileManager defaultManager] createFileAtPath:multiPlayerMyFile.path contents:nil attributes:nil];
+
+    NSLog(@"My tank posistion file: %@", multiPlayerMyFile);
 
     [self startHosting];
 
@@ -237,75 +244,67 @@ dispatch_queue_t arrayQueue;
                 }
 
                 // Now save this player posistion
-                // TODO:...
+                NSDictionary* tankPosDict = [self getTankPosistion];
+                [tankPosDict writeToURL:multiPlayerMyFile atomically:YES];
+
+                [self getAndPlaceOtherTanks];
+
             });
 
             [NSThread sleepForTimeInterval:0.01f];
         }
     });
+}
 
+- (int)getAndPlaceOtherTanks {
+    NSDictionary* otherTankDict = [[NSDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://192.168.42.13:8080/tank"]];
 
-    /*    // Bullet tracker
-     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-     while (YES) {
-     dispatch_async(arrayQueue, ^{
-     // Now check if the tank colided with another object
-     for (SKShapeNode* o in [objects copy]) {
-     if (o == nil) break;
-     for (SKShapeNode* b in [bullets copy]) {
-     if (b == nil) break;
+    CGPoint pos;
+    pos.x = [otherTankDict[@"tankPosX"] doubleValue];
+    pos.y = [otherTankDict[@"tankPosY"] doubleValue];
 
-     int crashRange = 40;
+    if (otherTank == nil) {
+        otherTank = [[SKShapeNode alloc] init];
+        //CGSize objSize = CGSizeMake([self ranNumFrom:80 to:250], [self ranNumFrom:80 to:250]);
+        CGSize objSize = CGSizeMake(128, 128);
+        otherTank = [SKShapeNode shapeNodeWithRectOfSize:objSize];
 
-     int x = o.position.x;
-     int y = o.position.y;
+        NSURL* imageURL = [NSBundle.mainBundle URLForResource:@"tank" withExtension:@"png"];
+        NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
+        SKTexture* tx = [SKTexture textureWithImage:img];
 
-     int bx = b.position.x;
-     int by = b.position.y;
+        [otherTank setFillTexture:tx];
+        [otherTank setFillColor:[NSColor redColor]];
+        otherTank.lineWidth = 0;
+        [self->background addChild:otherTank];
+    }
 
-     int xprox = abs(bx - x);
-     int yprox = abs(by - y);
+    otherTank.position = pos;
 
-     if (xprox <= crashRange && yprox <= crashRange) {
-     NSLog(@"CRASH");
+    return 0;
+}
 
-     [o removeFromParent];
-     [objects removeObject:o];
-     [bullets removeObject:b];
-     [b removeFromParent];
-     currentObjects--;
+- (NSDictionary*)getTankPosistion {
+    NSMutableDictionary* dict = [NSMutableDictionary new];
 
-     //                            SKAction* animate = [SKAction repeatActionForever:[SKAction animateWithTextures:fireAnimation timePerFrame:0.2]];
-     dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
-     SKShapeNode* fire = [[SKShapeNode alloc] init];
-     CGSize objSize = CGSizeMake([self ranNumFrom:250 to:550], [self ranNumFrom:250 to:550]);
-     fire = [SKShapeNode shapeNodeWithRectOfSize:objSize];
-     fire.position = o.position;
-     [self->background addChild:fire];
+    double x = background.position.x;
+    double y = background.position.y;
 
-     for (int f = 0; f < 30; f++) {
-     for (int i = 0; i < fireFrames.count; ++i) {
-     dispatch_async(dispatch_get_main_queue(), ^(void) {
-     [fire setFillTexture:fireFrames[i]];
-     [fire setFillColor:[NSColor whiteColor]];
-     fire.lineWidth = 0;
-     });
-     [NSThread sleepForTimeInterval:0.1];
-     }
-     }
-     // TODO: Need to modify all arrays on one thread, maybe the main thread or another
-     dispatch_async(dispatch_get_main_queue(), ^(void) {
-     [fire removeFromParent];
-     });
-     });
+    if (x < 0) {
+        x = fabs(x);
+    } else {
+        x = -fabs(x);
+    }
+    if (y < 0) {
+        y = fabs(y);
+    } else {
+        y = -fabs(y);
+    }
 
-     }
-     }
-     }
-     });
-     [NSThread sleepForTimeInterval:0.01f];
-     }
-     });*/
+    [dict setValue:@(x) forKey:@"tankPosX"];
+    [dict setValue:@(y) forKey:@"tankPosY"];
+
+    return [dict copy];
 }
 
 - (NSImage*)getRandomeObjectImage {
