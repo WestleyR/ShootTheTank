@@ -319,7 +319,7 @@ dispatch_queue_t arrayQueue;
 
 - (void)shootBullet:(CGPoint)pos {
     dispatch_async(arrayQueue, ^{
-    CGPoint startPos = background.position;
+        CGPoint startPos = self->background.position;
     if (startPos.x < 0) {
         startPos.x = fabs(startPos.x);
     } else {
