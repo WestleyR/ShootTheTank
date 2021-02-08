@@ -19,10 +19,17 @@ NSArray <SKTexture*>* fireFrames;
 int maxObjectCount = 40;
 int currentObjects = 0;
 
+NSURL* multiPlayerDir = NULL;
+
 dispatch_queue_t arrayQueue;
 
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
+
+    // Setup the tmp dir
+    NSURL *furl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"foobar"]];
+    [[NSFileManager defaultManager] createDirectoryAtURL:furl withIntermediateDirectories:YES attributes:nil error:nil];
+    multiPlayerDir = furl;
 
     [self startHosting];
 
@@ -228,6 +235,9 @@ dispatch_queue_t arrayQueue;
                         }
                     }
                 }
+
+                // Now save this player posistion
+                // TODO:...
             });
 
             [NSThread sleepForTimeInterval:0.01f];
@@ -422,7 +432,7 @@ double tankMovmentSpeed = 5.12;
 
         NSTask* hostingTask = [[NSTask alloc] init];
         hostingTask.launchPath = cmdPath;
-        hostingTask.arguments = @[@"foo", @"foo"];
+        hostingTask.arguments = @[@"-d", multiPlayerDir.path];
         hostingTask.standardOutput = pipe;
 
         [hostingTask launch];
