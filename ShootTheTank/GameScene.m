@@ -262,6 +262,8 @@ NSString* otherPlayerIPAddress = nil;
     otherPlayerIPAddress = ip;
 }
 
+SKShapeNode* otherTankBullet = nil;
+
 - (int)getAndPlaceOtherTanks {
     if (otherPlayerIPAddress == nil) {
         return 1;
@@ -270,13 +272,14 @@ NSString* otherPlayerIPAddress = nil;
     NSString* url = [NSString stringWithFormat:@"http://%@/tank", otherPlayerIPAddress];
     NSDictionary* otherTankDict = [[NSDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
 
+    //NSLog(@"DOO: %@", otherTankDict);
+
     CGPoint pos;
     pos.x = [otherTankDict[@"tankPosX"] doubleValue];
     pos.y = [otherTankDict[@"tankPosY"] doubleValue];
 
     if (otherTank == nil) {
         otherTank = [[SKShapeNode alloc] init];
-        //CGSize objSize = CGSizeMake([self ranNumFrom:80 to:250], [self ranNumFrom:80 to:250]);
         CGSize objSize = CGSizeMake(128, 128);
         otherTank = [SKShapeNode shapeNodeWithRectOfSize:objSize];
 
@@ -289,18 +292,57 @@ NSString* otherPlayerIPAddress = nil;
         otherTank.lineWidth = 0;
         [self->background addChild:otherTank];
     }
-
     otherTank.position = pos;
 
+    // Now get the bullets from the other tank
+//    for (NSDictionary* b in otherTankDict[@"bullets"]) {
+    for (int i = 0; i < [otherTankDict[@"bullets"] count]; i++) {
+//        NSLog(@"B=%@", [otherTankDict[@"bullets"] objectAtIndex:i]);
+        NSLog(@"B=%@", otherTankDict[@"bullets"][i]);
+
+        CGFloat x = [otherTankDict[@"bullets"][i] doubleValue];
+        i++;
+        CGFloat y = [otherTankDict[@"bullets"][i] doubleValue];
+        CGPoint pos;
+        pos.x = x;
+        pos.y = y;
+
+        if (otherTankBullet != nil) {
+            otherTankBullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
+            otherTankBullet.lineWidth = 25;
+            otherTankBullet.strokeColor = [NSColor redColor];
+            [otherTankBullet runAction:[SKAction sequence:@[
+                [SKAction waitForDuration:2.5],
+                [SKAction fadeOutWithDuration:0.1],
+                [SKAction removeFromParent]]]
+                // TODO: make otherTankBullet nil
+             ];
+
+            [self->background addChild:otherTankBullet];
+        }
+        otherTankBullet.position = pos;
+
+
+    }
+
     return 0;
+}
+
+// isMasterGame determends if the current game is the "master" game.
+// The master game sends all objects, while the "slave" game only sends
+// the tank location, and its projectiles.
+bool isMasterGame = NO;
+
++ (void)setIsMasterGame:(BOOL)master {
+    isMasterGame = master;
 }
 
 - (NSDictionary*)getTankPosistion {
     NSMutableDictionary* dict = [NSMutableDictionary new];
 
+    // Get the tank posistion
     double x = background.position.x;
     double y = background.position.y;
-
     if (x < 0) {
         x = fabs(x);
     } else {
@@ -314,6 +356,19 @@ NSString* otherPlayerIPAddress = nil;
 
     [dict setValue:@(x) forKey:@"tankPosX"];
     [dict setValue:@(y) forKey:@"tankPosY"];
+
+    // Now get the tank projectiles
+    NSMutableArray* bulls = [NSMutableArray new];
+    int i = 0;
+    for (SKShapeNode* b in bullets) {
+        [bulls addObject:@(b.position.x)];
+        [bulls addObject:@(b.position.y)];
+        //[bulls setValue:@(b.position.x) forKey:[NSString stringWithFormat:@"%d_x", i]];
+        //[bulls setValue:@(b.position.y) forKey:[NSString stringWithFormat:@"%d_y", i]];
+        i++;
+    }
+//    [dict setValue:bulls forKey:@"bullets"];
+    [dict setObject:bulls forKey:@"bullets"];
 
     return [dict copy];
 }

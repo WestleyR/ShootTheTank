@@ -12,5 +12,6 @@
 @interface GameScene : SKScene
 
 + (void)setOtherPlayerIPAddress:(NSString*)ip;
++ (void)setIsMasterGame:(BOOL)master;
 
 @end

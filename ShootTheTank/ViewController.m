@@ -15,6 +15,21 @@
     [super viewDidLoad];
 }
 
+- (IBAction)createGameAction:(id)sender {
+    NSLog(@"%s", __func__);
+
+    [GameScene setIsMasterGame:YES];
+
+    [self.gameMenuView setHidden:YES];
+
+    if (![self.ipAddressTextField.stringValue isEqualToString:@""]) {
+        // Set the IP address
+        [GameScene setOtherPlayerIPAddress:self.ipAddressTextField.stringValue];
+    }
+
+    [self loadGameScene];
+}
+
 - (IBAction)joinGameAction:(id)sender {
     NSLog(@"%s", __func__);
 
