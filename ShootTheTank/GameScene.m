@@ -16,7 +16,7 @@ NSMutableArray <SKShapeNode*>* objects;
 NSMutableArray <SKShapeNode*>* bullets;
 NSArray <SKTexture*>* fireFrames;
 
-int maxObjectCount = 400;
+int maxObjectCount = 40;
 int currentObjects = 0;
 
 dispatch_queue_t arrayQueue;
@@ -217,7 +217,7 @@ dispatch_queue_t arrayQueue;
                                         [NSThread sleepForTimeInterval:0.1];
                                     }
                                 }
-                                // TODO: Need to modify all arrays on one thread, maybe the main thread or another
+                                // TODO: Need to modify all arrays on one thread, maybe the main thread or another (FIXED. Use arrayQueue!)
                                 //dispatch_async(dispatch_get_main_queue(), ^(void) {
                                 dispatch_async(arrayQueue, ^{
                                     [fire removeFromParent];
@@ -318,6 +318,7 @@ dispatch_queue_t arrayQueue;
 }
 
 - (void)shootBullet:(CGPoint)pos {
+    dispatch_async(arrayQueue, ^{
     CGPoint startPos = background.position;
     if (startPos.x < 0) {
         startPos.x = fabs(startPos.x);
@@ -347,7 +348,7 @@ dispatch_queue_t arrayQueue;
 
     bullet.position = startPos;
 
-    dispatch_async(arrayQueue, ^{
+//    dispatch_async(arrayQueue, ^{
         [self->background addChild:bullet];
         [bullets addObject:bullet];
     });
