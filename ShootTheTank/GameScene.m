@@ -256,8 +256,19 @@ dispatch_queue_t arrayQueue;
     });
 }
 
+NSString* otherPlayerIPAddress = nil;
+
++ (void)setOtherPlayerIPAddress:(NSString*)ip {
+    otherPlayerIPAddress = ip;
+}
+
 - (int)getAndPlaceOtherTanks {
-    NSDictionary* otherTankDict = [[NSDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://192.168.42.13:8080/tank"]];
+    if (otherPlayerIPAddress == nil) {
+        return 1;
+    }
+
+    NSString* url = [NSString stringWithFormat:@"http://%@/tank", otherPlayerIPAddress];
+    NSDictionary* otherTankDict = [[NSDictionary alloc] initWithContentsOfURL:[NSURL URLWithString:url]];
 
     CGPoint pos;
     pos.x = [otherTankDict[@"tankPosX"] doubleValue];
@@ -431,7 +442,7 @@ double tankMovmentSpeed = 5.12;
 
         NSTask* hostingTask = [[NSTask alloc] init];
         hostingTask.launchPath = cmdPath;
-        hostingTask.arguments = @[@"-d", multiPlayerDir.path];
+        hostingTask.arguments = @[@"-d", multiPlayerDir.path, @"-p", @"80"];
         hostingTask.standardOutput = pipe;
 
         [hostingTask launch];

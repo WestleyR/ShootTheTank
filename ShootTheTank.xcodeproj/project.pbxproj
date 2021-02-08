@@ -96,12 +96,12 @@
 				3D2AF6A925CF13C40046DC00 /* GameScene.m */,
 				3D2AF6AB25CF13C40046DC00 /* ViewController.h */,
 				3D2AF6AC25CF13C40046DC00 /* ViewController.m */,
-				3D2AF6BD25CF14350046DC00 /* Images */,
-				3D2AF71C25D1B0700046DC00 /* Cmd */,
 				3D2AF6AE25CF13C70046DC00 /* Assets.xcassets */,
 				3D2AF6B025CF13C70046DC00 /* Main.storyboard */,
 				3D2AF6B325CF13C70046DC00 /* Info.plist */,
 				3D2AF6B425CF13C70046DC00 /* main.m */,
+				3D2AF6BD25CF14350046DC00 /* Images */,
+				3D2AF71C25D1B0700046DC00 /* Cmd */,
 				3D2AF6B625CF13C70046DC00 /* ShootTheTank.entitlements */,
 			);
 			path = ShootTheTank;

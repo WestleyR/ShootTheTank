@@ -11,4 +11,6 @@
 
 @interface GameScene : SKScene
 
++ (void)setOtherPlayerIPAddress:(NSString*)ip;
+
 @end
