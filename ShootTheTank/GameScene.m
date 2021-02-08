@@ -24,6 +24,8 @@ dispatch_queue_t arrayQueue;
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
 
+    [self startHosting];
+
     // Load the fire frames
     NSMutableArray* frames = [NSMutableArray new];
     for (int i = 1; i <= 3; i++) {
@@ -409,6 +411,32 @@ double tankMovmentSpeed = 5.12;
     }
 }
 
+- (void)startHosting {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+
+        NSString* cmdPath = [[NSBundle.mainBundle URLForResource:@"gohost" withExtension:@""] path];
+        NSLog(@"CMDURL: %@", cmdPath);
+
+        NSPipe *pipe = [NSPipe pipe];
+        NSFileHandle *file = pipe.fileHandleForReading;
+
+        NSTask* hostingTask = [[NSTask alloc] init];
+        hostingTask.launchPath = cmdPath;
+        hostingTask.arguments = @[@"foo", @"foo"];
+        hostingTask.standardOutput = pipe;
+
+        [hostingTask launch];
+
+        // AppDelegate will kill this prossess when the app terminates
+        [AppDelegate setHostingTask:hostingTask];
+
+        NSData *data = [file readDataToEndOfFile];
+        [file closeFile];
+        NSString *cmdOutput = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"cmd (%d) returned: %@", hostingTask.processIdentifier, cmdOutput);
+    });
+}
+
 NSTimer* autoShootTimer;
 NSPoint mouseDownPos;
 
@@ -460,7 +488,7 @@ NSPoint mouseDownPos;
     //    [self addChild:n];
 }
 
--(void)update:(CFTimeInterval)currentTime {
+- (void)update:(CFTimeInterval)currentTime {
     // Called before each frame is rendered
 }
 

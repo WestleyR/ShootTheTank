@@ -9,4 +9,6 @@
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
++ (void)setHostingTask:(NSTask*)task;
+
 @end

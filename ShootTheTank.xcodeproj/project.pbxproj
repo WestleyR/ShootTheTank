@@ -26,6 +26,7 @@
 		3D2AF71725CF98A00046DC00 /* fire_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF71425CF989F0046DC00 /* fire_2.png */; };
 		3D2AF71825CF98A00046DC00 /* fire_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF71525CF989F0046DC00 /* fire_1.png */; };
 		3D2AF71925CF98A00046DC00 /* fire_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF71625CF98A00046DC00 /* fire_3.png */; };
+		3D2AF72125D1B8850046DC00 /* gohost in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF72025D1B8850046DC00 /* gohost */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		3D2AF71425CF989F0046DC00 /* fire_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_2.png; sourceTree = "<group>"; };
 		3D2AF71525CF989F0046DC00 /* fire_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_1.png; sourceTree = "<group>"; };
 		3D2AF71625CF98A00046DC00 /* fire_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_3.png; sourceTree = "<group>"; };
+		3D2AF72025D1B8850046DC00 /* gohost */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = gohost; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				3D2AF6AB25CF13C40046DC00 /* ViewController.h */,
 				3D2AF6AC25CF13C40046DC00 /* ViewController.m */,
 				3D2AF6BD25CF14350046DC00 /* Images */,
+				3D2AF71C25D1B0700046DC00 /* Cmd */,
 				3D2AF6AE25CF13C70046DC00 /* Assets.xcassets */,
 				3D2AF6B025CF13C70046DC00 /* Main.storyboard */,
 				3D2AF6B325CF13C70046DC00 /* Info.plist */,
@@ -120,6 +123,14 @@
 				3D2AF71625CF98A00046DC00 /* fire_3.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		3D2AF71C25D1B0700046DC00 /* Cmd */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF72025D1B8850046DC00 /* gohost */,
+			);
+			path = Cmd;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,6 +192,7 @@
 				3D2AF6A525CF13C40046DC00 /* GameScene.sks in Resources */,
 				3D2AF70F25CF90580046DC00 /* deadTree.png in Resources */,
 				3D2AF71725CF98A00046DC00 /* fire_2.png in Resources */,
+				3D2AF72125D1B8850046DC00 /* gohost in Resources */,
 				3D2AF70925CF8E650046DC00 /* bush.png in Resources */,
 				3D2AF6C225CF14F20046DC00 /* background.png in Resources */,
 				3D2AF71925CF98A00046DC00 /* fire_3.png in Resources */,
