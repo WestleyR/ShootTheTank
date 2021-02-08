@@ -49,148 +49,128 @@ dispatch_queue_t arrayQueue;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         while (true) {
             // Spawn objects
-            if (currentObjects < maxObjectCount) {
-                // Spawn somthing
+            dispatch_async(arrayQueue, ^{
+                if (currentObjects < maxObjectCount) {
+                    // Spawn somthing
 
-                SKShapeNode* obj = [[SKShapeNode alloc] init];
+                    //                dispatch_async(arrayQueue, ^{
+                    SKShapeNode* obj = [[SKShapeNode alloc] init];
 
-                CGSize objSize = CGSizeMake([self ranNumFrom:80 to:250], [self ranNumFrom:80 to:250]);
+                    CGSize objSize = CGSizeMake([self ranNumFrom:80 to:250], [self ranNumFrom:80 to:250]);
 
-                obj = [SKShapeNode shapeNodeWithRectOfSize:objSize];
+                    obj = [SKShapeNode shapeNodeWithRectOfSize:objSize];
 
-                SKTexture* tx = [SKTexture textureWithImage:[self getRandomeObjectImage]];
-                [obj setFillTexture:tx];
-                [obj setFillColor:[NSColor whiteColor]];
-                obj.lineWidth = 0;
+                    SKTexture* tx = [SKTexture textureWithImage:[self getRandomeObjectImage]];
+                    [obj setFillTexture:tx];
+                    [obj setFillColor:[NSColor whiteColor]];
+                    obj.lineWidth = 0;
 
-                CGPoint objPos = [self ranPoint];
-                obj.position = objPos;
+                    CGPoint objPos = [self ranPoint];
+                    obj.position = objPos;
 
-                dispatch_async(arrayQueue, ^{
                     [self->background addChild:obj];
                     [objects addObject:obj];
-                });
-                currentObjects++;
-            }
+                    //                });
+                    currentObjects++;
+                }
 
-            // Move the tank
-            float speed = tankMovmentSpeed;
+                // Move the tank
+                float speed = tankMovmentSpeed;
 
-            if ((movingUp + movingDown + movingLeft + movingRight) >= 2) {
-                speed /= 1.25;
-            }
+                if ((movingUp + movingDown + movingLeft + movingRight) >= 2) {
+                    speed /= 1.25;
+                }
 
-            if (movingUp) {
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                if (movingUp) {
                     CGPoint newPos = self->background.position;
                     newPos.y -= speed;
                     [self->background setPosition:newPos];
-                });
-            }
-            if (movingDown) {
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                }
+                if (movingDown) {
                     CGPoint newPos = self->background.position;
                     newPos.y += speed;
                     [self->background setPosition:newPos];
-                });
-            }
-            if (movingLeft) {
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                }
+                if (movingLeft) {
                     CGPoint newPos = self->background.position;
                     newPos.x += speed;
                     [self->background setPosition:newPos];
-                });
-            }
-            if (movingRight) {
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                }
+                if (movingRight) {
                     CGPoint newPos = self->background.position;
                     newPos.x -= speed;
                     [self->background setPosition:newPos];
-                });
-            }
-
-            // Now set the tank rotation
-
-            int angle = (180 / M_PI * self->tank.zRotation);
-            if (movingUp) {
-                angle = 0;
-                if (movingLeft) {
-                    angle = 45;
-                } else if (movingRight) {
-                    angle = 325;
                 }
-            } else if (movingDown) {
-                angle = 180;
-                if (movingLeft) {
-                    angle = 145;
+
+                // Now set the tank rotation
+
+                int angle = (180 / M_PI * self->tank.zRotation);
+                if (movingUp) {
+                    angle = 0;
+                    if (movingLeft) {
+                        angle = 45;
+                    } else if (movingRight) {
+                        angle = 325;
+                    }
+                } else if (movingDown) {
+                    angle = 180;
+                    if (movingLeft) {
+                        angle = 145;
+                    } else if (movingRight) {
+                        angle = 245;
+                    }
+                } else if (movingLeft) {
+                    angle = 90;
                 } else if (movingRight) {
-                    angle = 245;
+                    angle = 270;
                 }
-            } else if (movingLeft) {
-                angle = 90;
-            } else if (movingRight) {
-                angle = 270;
-            }
-            double rad = (angle * M_PI / 180);
-            dispatch_async(dispatch_get_main_queue(), ^(void) {
+                double rad = (angle * M_PI / 180);
                 [self->tank setZRotation:rad];
-            });
 
 
-            // Now check if the tank colided with another object
-            dispatch_async(arrayQueue, ^{
-            for (SKShapeNode* o in [objects copy]) {
-                if (o == nil) break;
-
-                int crashRange = 70;
-
-                int x = o.position.x;
-                int y = o.position.y;
-
-                int tx = self->background.position.x;
-                int ty = self->background.position.y;
-
-                if (x < 0) {
-                    x = abs(x);
-                } else {
-                    x = -abs(x);
-                }
-                if (y < 0) {
-                    y = abs(y);
-                } else {
-                    y = -abs(y);
-                }
-
-                //NSLog(@"TANK: %d->%d", tx, ty);
-                //NSLog(@"OBJ: %d->%d", x, y);
-
-                int xprox = abs(tx - x);
-                int yprox = abs(ty - y);
-
-                //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
-                if (xprox <= crashRange && yprox <= crashRange) {
-                    NSLog(@"CRASH");
-
-                    dispatch_async(arrayQueue, ^{
-                        [o removeFromParent];
-                        [objects removeObject:o];
-                    });
-                    currentObjects--;
-                }
-            }
-            });
-
-            [NSThread sleepForTimeInterval:0.01f];
-        }
-    });
-
-    // Bullet tracker
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        while (YES) {
-            dispatch_async(arrayQueue, ^{
                 // Now check if the tank colided with another object
+
+                //            dispatch_async(arrayQueue, ^ {
                 for (SKShapeNode* o in [objects copy]) {
                     if (o == nil) break;
+
+                    int crashRange = 70;
+
+                    int x = o.position.x;
+                    int y = o.position.y;
+
+                    int tx = self->background.position.x;
+                    int ty = self->background.position.y;
+
+                    if (x < 0) {
+                        x = abs(x);
+                    } else {
+                        x = -abs(x);
+                    }
+                    if (y < 0) {
+                        y = abs(y);
+                    } else {
+                        y = -abs(y);
+                    }
+
+                    //NSLog(@"TANK: %d->%d", tx, ty);
+                    //NSLog(@"OBJ: %d->%d", x, y);
+
+                    int xprox = abs(tx - x);
+                    int yprox = abs(ty - y);
+
+                    //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
+                    if (xprox <= crashRange && yprox <= crashRange) {
+                        NSLog(@"CRASH");
+
+                        //dispatch_async(arrayQueue, ^{
+                        [o removeFromParent];
+                        [objects removeObject:o];
+                        //});
+                        currentObjects--;
+                    }
+
+                    // Now check if any bullet hit an object
                     for (SKShapeNode* b in [bullets copy]) {
                         if (b == nil) break;
 
@@ -208,23 +188,28 @@ dispatch_queue_t arrayQueue;
                         if (xprox <= crashRange && yprox <= crashRange) {
                             NSLog(@"CRASH");
 
-                            [o removeFromParent];
-                            [objects removeObject:o];
-                            [bullets removeObject:b];
-                            [b removeFromParent];
-                            currentObjects--;
+                            //dispatch_async(arrayQueue, ^{
+                                [o removeFromParent];
+                                [objects removeObject:o];
+                                [bullets removeObject:b];
+                                [b removeFromParent];
+                                currentObjects--;
+                            //});
 
-//                            SKAction* animate = [SKAction repeatActionForever:[SKAction animateWithTextures:fireAnimation timePerFrame:0.2]];
                             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
-                                SKShapeNode* fire = [[SKShapeNode alloc] init];
-                                CGSize objSize = CGSizeMake([self ranNumFrom:250 to:550], [self ranNumFrom:250 to:550]);
-                                fire = [SKShapeNode shapeNodeWithRectOfSize:objSize];
-                                fire.position = o.position;
-                                [self->background addChild:fire];
+                                __block SKShapeNode* fire;
+                                dispatch_async(arrayQueue, ^{
+                                    fire = [[SKShapeNode alloc] init];
+                                    CGSize objSize = CGSizeMake([self ranNumFrom:250 to:550], [self ranNumFrom:250 to:550]);
+                                    fire = [SKShapeNode shapeNodeWithRectOfSize:objSize];
+                                    fire.position = o.position;
+                                    [self->background addChild:fire];
+                                });
 
                                 for (int f = 0; f < 30; f++) {
                                     for (int i = 0; i < fireFrames.count; ++i) {
-                                        dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                        //dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                        dispatch_async(arrayQueue, ^{
                                             [fire setFillTexture:fireFrames[i]];
                                             [fire setFillColor:[NSColor whiteColor]];
                                             fire.lineWidth = 0;
@@ -233,16 +218,82 @@ dispatch_queue_t arrayQueue;
                                     }
                                 }
                                 // TODO: Need to modify all arrays on one thread, maybe the main thread or another
-                                //[fire removeFromParent];
+                                //dispatch_async(dispatch_get_main_queue(), ^(void) {
+                                dispatch_async(arrayQueue, ^{
+                                    [fire removeFromParent];
+                                });
                             });
-
                         }
                     }
                 }
             });
+
             [NSThread sleepForTimeInterval:0.01f];
         }
     });
+
+
+    /*    // Bullet tracker
+     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+     while (YES) {
+     dispatch_async(arrayQueue, ^{
+     // Now check if the tank colided with another object
+     for (SKShapeNode* o in [objects copy]) {
+     if (o == nil) break;
+     for (SKShapeNode* b in [bullets copy]) {
+     if (b == nil) break;
+
+     int crashRange = 40;
+
+     int x = o.position.x;
+     int y = o.position.y;
+
+     int bx = b.position.x;
+     int by = b.position.y;
+
+     int xprox = abs(bx - x);
+     int yprox = abs(by - y);
+
+     if (xprox <= crashRange && yprox <= crashRange) {
+     NSLog(@"CRASH");
+
+     [o removeFromParent];
+     [objects removeObject:o];
+     [bullets removeObject:b];
+     [b removeFromParent];
+     currentObjects--;
+
+     //                            SKAction* animate = [SKAction repeatActionForever:[SKAction animateWithTextures:fireAnimation timePerFrame:0.2]];
+     dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+     SKShapeNode* fire = [[SKShapeNode alloc] init];
+     CGSize objSize = CGSizeMake([self ranNumFrom:250 to:550], [self ranNumFrom:250 to:550]);
+     fire = [SKShapeNode shapeNodeWithRectOfSize:objSize];
+     fire.position = o.position;
+     [self->background addChild:fire];
+
+     for (int f = 0; f < 30; f++) {
+     for (int i = 0; i < fireFrames.count; ++i) {
+     dispatch_async(dispatch_get_main_queue(), ^(void) {
+     [fire setFillTexture:fireFrames[i]];
+     [fire setFillColor:[NSColor whiteColor]];
+     fire.lineWidth = 0;
+     });
+     [NSThread sleepForTimeInterval:0.1];
+     }
+     }
+     // TODO: Need to modify all arrays on one thread, maybe the main thread or another
+     dispatch_async(dispatch_get_main_queue(), ^(void) {
+     [fire removeFromParent];
+     });
+     });
+
+     }
+     }
+     }
+     });
+     [NSThread sleepForTimeInterval:0.01f];
+     }
+     });*/
 }
 
 - (NSImage*)getRandomeObjectImage {
@@ -285,9 +336,9 @@ dispatch_queue_t arrayQueue;
 
     [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
     [bullet runAction:[SKAction sequence:@[
-                       [SKAction waitForDuration:2.5],
-                       [SKAction fadeOutWithDuration:0.1],
-                       [SKAction removeFromParent]]]
+        [SKAction waitForDuration:2.5],
+        [SKAction fadeOutWithDuration:0.1],
+        [SKAction removeFromParent]]]
            completion:^{
         dispatch_async(arrayQueue, ^{
             [bullets removeObject:bullet];
@@ -378,34 +429,34 @@ NSPoint mouseDownPos;
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent {
-//    [self touchMovedToPoint:[theEvent locationInNode:self]];
-//    [self startFireing:[theEvent locationInNode:self]];
+    //    [self touchMovedToPoint:[theEvent locationInNode:self]];
+    //    [self startFireing:[theEvent locationInNode:self]];
     mouseDownPos = [theEvent locationInNode:self];
-//    [self shootBullet:[theEvent locationInNode:self]];
+    //    [self shootBullet:[theEvent locationInNode:self]];
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {
-   // [self touchUpAtPoint:[theEvent locationInNode:self]];
+    // [self touchUpAtPoint:[theEvent locationInNode:self]];
 
     [self stopFireing];
 }
 
 - (void)touchDownAtPoint:(CGPoint)pos {
     [self shootBullet:pos];
- }
+}
 
 - (void)touchMovedToPoint:(CGPoint)pos {
-//    SKShapeNode *n = [_spinnyNode copy];
-//    n.position = pos;
-//    n.strokeColor = [SKColor blueColor];
-//    [self addChild:n];
+    //    SKShapeNode *n = [_spinnyNode copy];
+    //    n.position = pos;
+    //    n.strokeColor = [SKColor blueColor];
+    //    [self addChild:n];
 }
 
 - (void)touchUpAtPoint:(CGPoint)pos {
-//    SKShapeNode *n = [_spinnyNode copy];
-//    n.position = pos;
-//    n.strokeColor = [SKColor redColor];
-//    [self addChild:n];
+    //    SKShapeNode *n = [_spinnyNode copy];
+    //    n.position = pos;
+    //    n.strokeColor = [SKColor redColor];
+    //    [self addChild:n];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
