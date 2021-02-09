@@ -298,16 +298,18 @@ SKShapeNode* otherTankBullet = nil;
 //    for (NSDictionary* b in otherTankDict[@"bullets"]) {
     for (int i = 0; i < [otherTankDict[@"bullets"] count]; i++) {
 //        NSLog(@"B=%@", [otherTankDict[@"bullets"] objectAtIndex:i]);
-        NSLog(@"B=%@", otherTankDict[@"bullets"][i]);
 
         CGFloat x = [otherTankDict[@"bullets"][i] doubleValue];
         i++;
         CGFloat y = [otherTankDict[@"bullets"][i] doubleValue];
+
+        NSLog(@"B: %f->%f", x, y);
+
         CGPoint pos;
         pos.x = x;
         pos.y = y;
 
-        if (otherTankBullet != nil) {
+        if (otherTankBullet == nil) {
             otherTankBullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
             otherTankBullet.lineWidth = 25;
             otherTankBullet.strokeColor = [NSColor redColor];
@@ -315,8 +317,9 @@ SKShapeNode* otherTankBullet = nil;
                 [SKAction waitForDuration:2.5],
                 [SKAction fadeOutWithDuration:0.1],
                 [SKAction removeFromParent]]]
-                // TODO: make otherTankBullet nil
-             ];
+                            completion:^{
+                otherTankBullet = nil;
+            }];
 
             [self->background addChild:otherTankBullet];
         }
