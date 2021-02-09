@@ -36,6 +36,7 @@
 		3D2AF73925D240380046DC00 /* dust_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73425D240380046DC00 /* dust_1.png */; };
 		3D2AF73A25D240380046DC00 /* dust_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73525D240380046DC00 /* dust_5.png */; };
 		3D2AF73B25D240380046DC00 /* dust_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73625D240380046DC00 /* dust_4.png */; };
+		3D2AF74125D240D80046DC00 /* SoundFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AF74025D240D80046DC00 /* SoundFX.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,8 @@
 		3D2AF73425D240380046DC00 /* dust_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_1.png; sourceTree = "<group>"; };
 		3D2AF73525D240380046DC00 /* dust_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_5.png; sourceTree = "<group>"; };
 		3D2AF73625D240380046DC00 /* dust_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_4.png; sourceTree = "<group>"; };
+		3D2AF73F25D240D80046DC00 /* SoundFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundFX.h; sourceTree = "<group>"; };
+		3D2AF74025D240D80046DC00 /* SoundFX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundFX.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +121,7 @@
 				3D2AF6B025CF13C70046DC00 /* Main.storyboard */,
 				3D2AF6B325CF13C70046DC00 /* Info.plist */,
 				3D2AF6B425CF13C70046DC00 /* main.m */,
+				3D2AF73D25D240B40046DC00 /* Classes */,
 				3D2AF6BD25CF14350046DC00 /* Images */,
 				3D2AF72625D23FF80046DC00 /* Sounds */,
 				3D2AF71C25D1B0700046DC00 /* Cmd */,
@@ -182,6 +186,23 @@
 				3D2AF73625D240380046DC00 /* dust_4.png */,
 			);
 			path = Dust_frames;
+			sourceTree = "<group>";
+		};
+		3D2AF73D25D240B40046DC00 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF73E25D240BB0046DC00 /* SoundFX */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		3D2AF73E25D240BB0046DC00 /* SoundFX */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF73F25D240D80046DC00 /* SoundFX.h */,
+				3D2AF74025D240D80046DC00 /* SoundFX.m */,
+			);
+			path = SoundFX;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -278,6 +299,7 @@
 				3D2AF6AD25CF13C40046DC00 /* ViewController.m in Sources */,
 				3D2AF6AA25CF13C40046DC00 /* GameScene.m in Sources */,
 				3D2AF6B525CF13C70046DC00 /* main.m in Sources */,
+				3D2AF74125D240D80046DC00 /* SoundFX.m in Sources */,
 				3D2AF6A325CF13C40046DC00 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
