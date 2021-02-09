@@ -583,7 +583,7 @@ NSPoint mouseDownPos;
 }
 
 - (void)touchDownAtPoint:(CGPoint)pos {
-    [SoundFX SFXShootTank];
+    //[SoundFX SFXShootTank];
     [self shootBullet:pos];
 }
 
