@@ -295,10 +295,8 @@ SKShapeNode* otherTankBullet = nil;
     otherTank.position = pos;
 
     // Now get the bullets from the other tank
-//    for (NSDictionary* b in otherTankDict[@"bullets"]) {
-    for (int i = 0; i < [otherTankDict[@"bullets"] count]; i++) {
-//        NSLog(@"B=%@", [otherTankDict[@"bullets"] objectAtIndex:i]);
 
+    for (int i = 0; i < [otherTankDict[@"bullets"] count]; i++) {
         CGFloat x = [otherTankDict[@"bullets"][i] doubleValue];
         i++;
         CGFloat y = [otherTankDict[@"bullets"][i] doubleValue];
@@ -309,22 +307,29 @@ SKShapeNode* otherTankBullet = nil;
         pos.x = x;
         pos.y = y;
 
-        if (otherTankBullet == nil) {
-            otherTankBullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
-            otherTankBullet.lineWidth = 25;
-            otherTankBullet.strokeColor = [NSColor redColor];
-            [otherTankBullet runAction:[SKAction sequence:@[
-                [SKAction waitForDuration:2.5],
-                [SKAction fadeOutWithDuration:0.1],
-                [SKAction removeFromParent]]]
-                            completion:^{
-                otherTankBullet = nil;
-            }];
+        dispatch_async(arrayQueue, ^{
+            if (otherTankBullet == nil) {
+                otherTankBullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
+                otherTankBullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
+                otherTankBullet.lineWidth = 15;
+                otherTankBullet.strokeColor = [NSColor redColor];
+                [otherTankBullet runAction:[SKAction sequence:@[
+                    [SKAction waitForDuration:2.5],
+                    [SKAction fadeOutWithDuration:0.1],
+                    [SKAction removeFromParent]]]
+                                completion:^{
+                    dispatch_async(arrayQueue, ^{
+                        [otherTankBullet removeFromParent];
+                        otherTankBullet = nil;
+                    });
 
-            [self->background addChild:otherTankBullet];
-        }
-        otherTankBullet.position = pos;
-
+                }];
+                dispatch_async(arrayQueue, ^{
+                    [self->background addChild:otherTankBullet];
+                });
+            }
+            otherTankBullet.position = pos;
+        });
 
     }
 
