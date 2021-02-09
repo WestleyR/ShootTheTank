@@ -27,6 +27,15 @@
 		3D2AF71825CF98A00046DC00 /* fire_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF71525CF989F0046DC00 /* fire_1.png */; };
 		3D2AF71925CF98A00046DC00 /* fire_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF71625CF98A00046DC00 /* fire_3.png */; };
 		3D2AF72125D1B8850046DC00 /* gohost in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF72025D1B8850046DC00 /* gohost */; };
+		3D2AF72B25D23FF90046DC00 /* fire_burning.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF72725D23FF80046DC00 /* fire_burning.mp3 */; };
+		3D2AF72C25D23FF90046DC00 /* fire_med.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF72825D23FF80046DC00 /* fire_med.mp3 */; };
+		3D2AF72D25D23FF90046DC00 /* fire_light.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF72925D23FF80046DC00 /* fire_light.mp3 */; };
+		3D2AF72E25D23FF90046DC00 /* engine.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF72A25D23FF80046DC00 /* engine.mp3 */; };
+		3D2AF73725D240380046DC00 /* dust_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73225D240380046DC00 /* dust_3.png */; };
+		3D2AF73825D240380046DC00 /* dust_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73325D240380046DC00 /* dust_2.png */; };
+		3D2AF73925D240380046DC00 /* dust_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73425D240380046DC00 /* dust_1.png */; };
+		3D2AF73A25D240380046DC00 /* dust_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73525D240380046DC00 /* dust_5.png */; };
+		3D2AF73B25D240380046DC00 /* dust_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73625D240380046DC00 /* dust_4.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +65,15 @@
 		3D2AF71525CF989F0046DC00 /* fire_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_1.png; sourceTree = "<group>"; };
 		3D2AF71625CF98A00046DC00 /* fire_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_3.png; sourceTree = "<group>"; };
 		3D2AF72025D1B8850046DC00 /* gohost */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = gohost; sourceTree = "<group>"; };
+		3D2AF72725D23FF80046DC00 /* fire_burning.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire_burning.mp3; sourceTree = "<group>"; };
+		3D2AF72825D23FF80046DC00 /* fire_med.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire_med.mp3; sourceTree = "<group>"; };
+		3D2AF72925D23FF80046DC00 /* fire_light.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire_light.mp3; sourceTree = "<group>"; };
+		3D2AF72A25D23FF80046DC00 /* engine.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = engine.mp3; sourceTree = "<group>"; };
+		3D2AF73225D240380046DC00 /* dust_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_3.png; sourceTree = "<group>"; };
+		3D2AF73325D240380046DC00 /* dust_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_2.png; sourceTree = "<group>"; };
+		3D2AF73425D240380046DC00 /* dust_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_1.png; sourceTree = "<group>"; };
+		3D2AF73525D240380046DC00 /* dust_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_5.png; sourceTree = "<group>"; };
+		3D2AF73625D240380046DC00 /* dust_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_4.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +119,7 @@
 				3D2AF6B325CF13C70046DC00 /* Info.plist */,
 				3D2AF6B425CF13C70046DC00 /* main.m */,
 				3D2AF6BD25CF14350046DC00 /* Images */,
+				3D2AF72625D23FF80046DC00 /* Sounds */,
 				3D2AF71C25D1B0700046DC00 /* Cmd */,
 				3D2AF6B625CF13C70046DC00 /* ShootTheTank.entitlements */,
 			);
@@ -110,6 +129,8 @@
 		3D2AF6BD25CF14350046DC00 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3D2AF73025D240040046DC00 /* Fire_frames */,
+				3D2AF73125D240380046DC00 /* Dust_frames */,
 				3D2AF6C125CF14F20046DC00 /* background.png */,
 				3D2AF70125CF8DAB0046DC00 /* tank.png */,
 				3D2AF6F425CF45670046DC00 /* obj1.png */,
@@ -118,9 +139,6 @@
 				3D2AF70525CF8E230046DC00 /* battle_grounds.jpg */,
 				3D2AF70B25CF8FC10046DC00 /* bushytree.png */,
 				3D2AF70E25CF90580046DC00 /* deadTree.png */,
-				3D2AF71525CF989F0046DC00 /* fire_1.png */,
-				3D2AF71425CF989F0046DC00 /* fire_2.png */,
-				3D2AF71625CF98A00046DC00 /* fire_3.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -131,6 +149,39 @@
 				3D2AF72025D1B8850046DC00 /* gohost */,
 			);
 			path = Cmd;
+			sourceTree = "<group>";
+		};
+		3D2AF72625D23FF80046DC00 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF72725D23FF80046DC00 /* fire_burning.mp3 */,
+				3D2AF72825D23FF80046DC00 /* fire_med.mp3 */,
+				3D2AF72925D23FF80046DC00 /* fire_light.mp3 */,
+				3D2AF72A25D23FF80046DC00 /* engine.mp3 */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		3D2AF73025D240040046DC00 /* Fire_frames */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF71525CF989F0046DC00 /* fire_1.png */,
+				3D2AF71425CF989F0046DC00 /* fire_2.png */,
+				3D2AF71625CF98A00046DC00 /* fire_3.png */,
+			);
+			path = Fire_frames;
+			sourceTree = "<group>";
+		};
+		3D2AF73125D240380046DC00 /* Dust_frames */ = {
+			isa = PBXGroup;
+			children = (
+				3D2AF73225D240380046DC00 /* dust_3.png */,
+				3D2AF73325D240380046DC00 /* dust_2.png */,
+				3D2AF73425D240380046DC00 /* dust_1.png */,
+				3D2AF73525D240380046DC00 /* dust_5.png */,
+				3D2AF73625D240380046DC00 /* dust_4.png */,
+			);
+			path = Dust_frames;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,20 +240,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D2AF72B25D23FF90046DC00 /* fire_burning.mp3 in Resources */,
 				3D2AF6A525CF13C40046DC00 /* GameScene.sks in Resources */,
 				3D2AF70F25CF90580046DC00 /* deadTree.png in Resources */,
 				3D2AF71725CF98A00046DC00 /* fire_2.png in Resources */,
 				3D2AF72125D1B8850046DC00 /* gohost in Resources */,
 				3D2AF70925CF8E650046DC00 /* bush.png in Resources */,
+				3D2AF72E25D23FF90046DC00 /* engine.mp3 in Resources */,
+				3D2AF73725D240380046DC00 /* dust_3.png in Resources */,
 				3D2AF6C225CF14F20046DC00 /* background.png in Resources */,
 				3D2AF71925CF98A00046DC00 /* fire_3.png in Resources */,
+				3D2AF73825D240380046DC00 /* dust_2.png in Resources */,
+				3D2AF73B25D240380046DC00 /* dust_4.png in Resources */,
 				3D2AF70625CF8E230046DC00 /* battle_grounds.jpg in Resources */,
 				3D2AF70225CF8DAB0046DC00 /* tank.png in Resources */,
 				3D2AF6AF25CF13C70046DC00 /* Assets.xcassets in Resources */,
+				3D2AF72D25D23FF90046DC00 /* fire_light.mp3 in Resources */,
 				3D2AF6FB25CF88100046DC00 /* tree.png in Resources */,
 				3D2AF6A725CF13C40046DC00 /* Actions.sks in Resources */,
+				3D2AF73A25D240380046DC00 /* dust_5.png in Resources */,
+				3D2AF72C25D23FF90046DC00 /* fire_med.mp3 in Resources */,
 				3D2AF70C25CF8FC10046DC00 /* bushytree.png in Resources */,
 				3D2AF71825CF98A00046DC00 /* fire_1.png in Resources */,
+				3D2AF73925D240380046DC00 /* dust_1.png in Resources */,
 				3D2AF6F525CF45670046DC00 /* obj1.png in Resources */,
 				3D2AF6B225CF13C70046DC00 /* Main.storyboard in Resources */,
 			);
