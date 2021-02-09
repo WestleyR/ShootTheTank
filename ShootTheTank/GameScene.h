@@ -9,6 +9,8 @@
 
 #import "AppDelegate.h"
 
+#import "Classes/SoundFX/SoundFX.h"
+
 @interface GameScene : SKScene
 
 + (void)setOtherPlayerIPAddress:(NSString*)ip;
