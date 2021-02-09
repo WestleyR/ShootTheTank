@@ -146,7 +146,6 @@ dispatch_queue_t arrayQueue;
 
                 // Now check if the tank colided with another object
 
-                //            dispatch_async(arrayQueue, ^ {
                 for (SKShapeNode* o in [objects copy]) {
                     if (o == nil) break;
 
@@ -301,7 +300,7 @@ SKShapeNode* otherTankBullet = nil;
         i++;
         CGFloat y = [otherTankDict[@"bullets"][i] doubleValue];
 
-        NSLog(@"B: %f->%f", x, y);
+        //NSLog(@"B: %f->%f", x, y);
 
         CGPoint pos;
         pos.x = x;
@@ -329,8 +328,37 @@ SKShapeNode* otherTankBullet = nil;
                 });
             }
             otherTankBullet.position = pos;
-        });
 
+            // Now check if the bullet hit this tank
+
+            int crashRange = 70;
+
+            int tx = self->background.position.x;
+            int ty = self->background.position.y;
+
+            double bx, by;
+
+            if (x < 0) {
+                bx = fabs(x);
+            } else {
+                bx = -fabs(x);
+            }
+            if (y < 0) {
+                by = fabs(y);
+            } else {
+                by = -fabs(y);
+            }
+
+            int xprox = fabs(tx - bx);
+            int yprox = fabs(ty - by);
+
+            //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
+            if (xprox <= crashRange && yprox <= crashRange) {
+                NSLog(@"YOUR TANK GOT HIT!!!");
+                [self->tank removeFromParent];
+            }
+
+        });
     }
 
     return 0;
