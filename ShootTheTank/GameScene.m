@@ -456,6 +456,8 @@ bool isMasterGame = NO;
     }
     [dict setObject:bulls forKey:@"bullets"];
 
+    // TODO: also set how much damage should be delt
+
     // Now get this tank hitpoints
     [dict setValue:@(tankHitPoints) forKey:@"tankHitPoints"];
 
