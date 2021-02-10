@@ -13,12 +13,27 @@
     SKShapeNode* otherTank;
 }
 
-NSMutableArray <SKShapeNode*>* objects;
-NSMutableArray <SKShapeNode*>* bullets;
-NSArray <SKTexture*>* fireFrames;
+//****************
+// Changable stuff
+//****************
 
 // Starting hit points
 NSInteger tankHitPoints = 200;
+
+// The tank moving speed
+double tankMovmentSpeed = 15.12;
+
+// The amount of damage that this tank will deal to other tanks
+float bulletDamage = 20;
+
+
+//**************
+// Internal vars
+//**************
+
+NSMutableArray <SKShapeNode*>* objects;
+NSMutableArray <SKShapeNode*>* bullets;
+NSArray <SKTexture*>* fireFrames;
 
 SKLabelNode* tankHealthLabel = nil;
 
@@ -247,8 +262,6 @@ dispatch_queue_t arrayQueue;
                                         [NSThread sleepForTimeInterval:0.1];
                                     }
                                 }
-                                // TODO: Need to modify all arrays on one thread, maybe the main thread or another (FIXED. Use arrayQueue!)
-                                //dispatch_async(dispatch_get_main_queue(), ^(void) {
                                 dispatch_async(arrayQueue, ^{
                                     [fire removeFromParent];
                                 });
@@ -403,11 +416,11 @@ NSDate* lastTimeHit = nil;
             int xprox = fabs(tx - bx);
             int yprox = fabs(ty - by);
 
-            //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
             if (xprox <= crashRange && yprox <= crashRange) {
-                if (lastTimeHit == nil || [lastTimeHit timeIntervalSinceNow] < -0.3) {
-                    NSLog(@"YOUR TANK GOT HIT!!!");
-                    tankHitPoints -= 20;
+                if (lastTimeHit == nil || [lastTimeHit timeIntervalSinceNow] < -0.25) {
+                    float damage = [[otherTankDict valueForKey:@"bulletDamage"] floatValue];
+                    NSLog(@"YOUR TANK GOT HIT!!! -%f", damage);
+                    tankHitPoints -= damage;
                     lastTimeHit = [NSDate date];
                 }
             }
@@ -456,7 +469,8 @@ bool isMasterGame = NO;
     }
     [dict setObject:bulls forKey:@"bullets"];
 
-    // TODO: also set how much damage should be delt
+    // Set how much damage to deal to other tanks
+    [dict setValue:@(bulletDamage) forKey:@"bulletDamage"];
 
     // Now get this tank hitpoints
     [dict setValue:@(tankHitPoints) forKey:@"tankHitPoints"];
@@ -529,7 +543,6 @@ bool movingUp;
 bool movingDown;
 bool movingLeft;
 bool movingRight;
-double tankMovmentSpeed = 15.12;
 
 - (void)keyDown:(NSEvent*)event {
     switch (event.keyCode) {
