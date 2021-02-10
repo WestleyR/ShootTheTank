@@ -501,10 +501,10 @@ bool isMasterGame = NO;
         bullet.lineWidth = 15;
         bullet.strokeColor = [NSColor blackColor];
 
-        [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
+        //[bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
 
-        //CGVector vect = CGVectorMake(300, 300);
-        //[bullet runAction:[SKAction repeatActionForever:[SKAction moveBy:vect duration:10]]];
+        CGVector vect = CGVectorMake(0, 300);
+        [bullet runAction:[SKAction repeatActionForever:[SKAction moveBy:vect duration:1]]];
         [bullet runAction:[SKAction sequence:@[
             [SKAction waitForDuration:2.5],
             [SKAction fadeOutWithDuration:0.1],
