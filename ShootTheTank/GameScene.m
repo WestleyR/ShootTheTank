@@ -486,35 +486,38 @@ bool isMasterGame = NO;
 - (void)shootBullet:(CGPoint)pos {
     dispatch_async(arrayQueue, ^{
         CGPoint startPos = self->background.position;
-    if (startPos.x < 0) {
-        startPos.x = fabs(startPos.x);
-    } else {
-        startPos.x = -fabs(startPos.x);
-    }
-    if (startPos.y < 0) {
-        startPos.y = fabs(startPos.y);
-    } else {
-        startPos.y = -fabs(startPos.y);
-    }
+        if (startPos.x < 0) {
+            startPos.x = fabs(startPos.x);
+        } else {
+            startPos.x = -fabs(startPos.x);
+        }
+        if (startPos.y < 0) {
+            startPos.y = fabs(startPos.y);
+        } else {
+            startPos.y = -fabs(startPos.y);
+        }
 
-    SKShapeNode* bullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
-    bullet.lineWidth = 15;
-    bullet.strokeColor = [NSColor blackColor];
+        SKShapeNode* bullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
+        bullet.lineWidth = 15;
+        bullet.strokeColor = [NSColor blackColor];
 
-    [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
-    [bullet runAction:[SKAction sequence:@[
-        [SKAction waitForDuration:2.5],
-        [SKAction fadeOutWithDuration:0.1],
-        [SKAction removeFromParent]]]
-           completion:^{
-        dispatch_async(arrayQueue, ^{
-            [bullets removeObject:bullet];
-        });
-    }];
+        [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
 
-    bullet.position = startPos;
+        //CGVector vect = CGVectorMake(300, 300);
+        //[bullet runAction:[SKAction repeatActionForever:[SKAction moveBy:vect duration:10]]];
+        [bullet runAction:[SKAction sequence:@[
+            [SKAction waitForDuration:2.5],
+            [SKAction fadeOutWithDuration:0.1],
+            [SKAction removeFromParent]]]
+               completion:^{
+            dispatch_async(arrayQueue, ^{
+                [bullets removeObject:bullet];
+            });
+        }];
 
-//    dispatch_async(arrayQueue, ^{
+        bullet.position = startPos;
+
+        //    dispatch_async(arrayQueue, ^{
         [self->background addChild:bullet];
         [bullets addObject:bullet];
     });

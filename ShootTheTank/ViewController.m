@@ -13,6 +13,12 @@
 - (void)viewDidLoad {
     NSLog(@"%s", __func__);
     [super viewDidLoad];
+
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSString* lastIPAddress = [defaults valueForKey:@"LastIPAddress"];
+    if (lastIPAddress != nil) {
+        [self.ipAddressTextField setStringValue:lastIPAddress];
+    }
 }
 
 - (IBAction)createGameAction:(id)sender {
@@ -25,6 +31,7 @@
     if (![self.ipAddressTextField.stringValue isEqualToString:@""]) {
         // Set the IP address
         [GameScene setOtherPlayerIPAddress:self.ipAddressTextField.stringValue];
+        [[NSUserDefaults standardUserDefaults] setValue:self.ipAddressTextField.stringValue forKey:@"LastIPAddress"];
     }
 
     [self loadGameScene];
@@ -38,6 +45,7 @@
     if (![self.ipAddressTextField.stringValue isEqualToString:@""]) {
         // Set the IP address
         [GameScene setOtherPlayerIPAddress:self.ipAddressTextField.stringValue];
+        [[NSUserDefaults standardUserDefaults] setValue:self.ipAddressTextField.stringValue forKey:@"LastIPAddress"];
     }
 
     [self loadGameScene];
