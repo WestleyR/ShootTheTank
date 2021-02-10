@@ -551,6 +551,8 @@ double tankMovmentSpeed = 5.12;
 NSTimer* autoShootTimer;
 NSPoint mouseDownPos;
 
+NSDate* lastFiredDate = nil;
+
 - (void)startFireing {
     autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:0.9 repeats:YES block:^(NSTimer *timer) {
         [SoundFX SFXShootTankMed];
@@ -571,9 +573,7 @@ NSPoint mouseDownPos;
 
 - (void)mouseDragged:(NSEvent *)theEvent {
     //    [self touchMovedToPoint:[theEvent locationInNode:self]];
-    //    [self startFireing:[theEvent locationInNode:self]];
     mouseDownPos = [theEvent locationInNode:self];
-    //    [self shootBullet:[theEvent locationInNode:self]];
 }
 
 - (void)mouseUp:(NSEvent *)theEvent {
@@ -583,8 +583,11 @@ NSPoint mouseDownPos;
 }
 
 - (void)touchDownAtPoint:(CGPoint)pos {
-    [SoundFX SFXShootTankMed];
-    [self shootBullet:pos];
+    if (lastFiredDate == nil || [lastFiredDate timeIntervalSinceNow] < -0.9) {
+        [SoundFX SFXShootTankMed];
+        [self shootBullet:pos];
+        lastFiredDate = [NSDate date];
+    }
 }
 
 - (void)touchMovedToPoint:(CGPoint)pos {
