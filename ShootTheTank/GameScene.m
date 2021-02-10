@@ -193,7 +193,7 @@ dispatch_queue_t arrayQueue;
 
                     //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
                     if (xprox <= crashRange && yprox <= crashRange) {
-                        NSLog(@"CRASH");
+                        NSLog(@"Your tank crashed with on object");
 
                         [o removeFromParent];
                         [objects removeObject:o];
@@ -220,15 +220,11 @@ dispatch_queue_t arrayQueue;
 
                         // The bullet hit an object
                         if (xprox <= crashRange && yprox <= crashRange) {
-                            NSLog(@"CRASH");
-
-                            //dispatch_async(arrayQueue, ^{
-                                [o removeFromParent];
-                                [objects removeObject:o];
-                                [bullets removeObject:b];
-                                [b removeFromParent];
-                                currentObjects--;
-                            //});
+                            [o removeFromParent];
+                            [objects removeObject:o];
+                            [bullets removeObject:b];
+                            [b removeFromParent];
+                            currentObjects--;
 
                             dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
                                 __block SKShapeNode* fire;
