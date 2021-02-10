@@ -289,7 +289,7 @@ dispatch_queue_t arrayQueue;
 
             });
 
-            [NSThread sleepForTimeInterval:0.01f];
+            [NSThread sleepForTimeInterval:0.03f];
         }
     });
 }
@@ -405,7 +405,7 @@ NSDate* lastTimeHit = nil;
 
             //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
             if (xprox <= crashRange && yprox <= crashRange) {
-                if (lastTimeHit == nil || [lastTimeHit timeIntervalSinceNow] < -0.9) {
+                if (lastTimeHit == nil || [lastTimeHit timeIntervalSinceNow] < -0.3) {
                     NSLog(@"YOUR TANK GOT HIT!!!");
                     tankHitPoints -= 20;
                     lastTimeHit = [NSDate date];
@@ -502,7 +502,7 @@ bool isMasterGame = NO;
         bullet.strokeColor = [NSColor blackColor];
 
         // Calculate the duration, which is determent on where you click to fire
-        float dur = (fabs(pos.x) + fabs(pos.y)) / 800;
+        float dur = (fabs(pos.x) + fabs(pos.y)) / 1200;
 
         [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:dur]]];
         [bullet runAction:[SKAction sequence:@[
@@ -527,7 +527,7 @@ bool movingUp;
 bool movingDown;
 bool movingLeft;
 bool movingRight;
-double tankMovmentSpeed = 5.12;
+double tankMovmentSpeed = 15.12;
 
 - (void)keyDown:(NSEvent*)event {
     switch (event.keyCode) {
