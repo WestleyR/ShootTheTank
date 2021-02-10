@@ -17,6 +17,11 @@ NSMutableArray <SKShapeNode*>* objects;
 NSMutableArray <SKShapeNode*>* bullets;
 NSArray <SKTexture*>* fireFrames;
 
+// Starting hit points
+NSInteger tankHitPoints = 200;
+
+SKLabelNode* tankHealthLabel = nil;
+
 int maxObjectCount = 40;
 int currentObjects = 0;
 
@@ -60,6 +65,7 @@ dispatch_queue_t arrayQueue;
 
     background = (SKShapeNode *)[self childNodeWithName:@"//battleBackground"];
     tank = (SKShapeNode *)[self childNodeWithName:@"//tank"];
+    tankHealthLabel = (SKLabelNode*)[self childNodeWithName:@"//tankHealth"];
 
     // The background demon to move the map
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -69,7 +75,6 @@ dispatch_queue_t arrayQueue;
                 if (currentObjects < maxObjectCount) {
                     // Spawn somthing
 
-                    //                dispatch_async(arrayQueue, ^{
                     SKShapeNode* obj = [[SKShapeNode alloc] init];
 
                     CGSize objSize = CGSizeMake([self ranNumFrom:80 to:250], [self ranNumFrom:80 to:250]);
@@ -86,11 +91,13 @@ dispatch_queue_t arrayQueue;
 
                     [self->background addChild:obj];
                     [objects addObject:obj];
-                    //                });
                     currentObjects++;
                 }
 
+                //**************
                 // Move the tank
+                //**************
+
                 float speed = tankMovmentSpeed;
 
                 if ((movingUp + movingDown + movingLeft + movingRight) >= 2) {
@@ -118,6 +125,15 @@ dispatch_queue_t arrayQueue;
                     [self->background setPosition:newPos];
                 }
 
+                // Set the tank health label
+                [tankHealthLabel setText:[NSString stringWithFormat:@"%d", (int)tankHitPoints]];
+
+                // Now check the hitpoints
+                if (tankHitPoints <= 0) {
+                    NSLog(@"Your tank is lifeless");
+                    [self respawnTank];
+                }
+
                 // Now set the tank rotation
 
                 int angle = (180 / M_PI * self->tank.zRotation);
@@ -143,8 +159,9 @@ dispatch_queue_t arrayQueue;
                 double rad = (angle * M_PI / 180);
                 [self->tank setZRotation:rad];
 
-
+                //**************************************************
                 // Now check if the tank colided with another object
+                //**************************************************
 
                 for (SKShapeNode* o in [objects copy]) {
                     if (o == nil) break;
@@ -178,11 +195,12 @@ dispatch_queue_t arrayQueue;
                     if (xprox <= crashRange && yprox <= crashRange) {
                         NSLog(@"CRASH");
 
-                        //dispatch_async(arrayQueue, ^{
                         [o removeFromParent];
                         [objects removeObject:o];
-                        //});
                         currentObjects--;
+
+                        // Take some hit points away since it hit an object
+                        tankHitPoints -= 12;
                     }
 
                     // Now check if any bullet hit an object
@@ -242,16 +260,28 @@ dispatch_queue_t arrayQueue;
                     }
                 }
 
-                // Now save this player posistion
+                // Now save this player posistion to the web server
                 NSDictionary* tankPosDict = [self getTankPosistion];
                 [tankPosDict writeToURL:multiPlayerMyFile atomically:YES];
 
+                // Updates the other players posistion/hitpoints
                 [self getAndPlaceOtherTanks];
 
             });
 
             [NSThread sleepForTimeInterval:0.01f];
         }
+    });
+}
+
+- (void)respawnTank {
+    dispatch_async(arrayQueue, ^{
+        CGPoint pos;
+        pos.x = 0;
+        pos.y = 0;
+
+        self->background.position = pos;
+        tankHitPoints = 200;
     });
 }
 
@@ -355,7 +385,7 @@ SKShapeNode* otherTankBullet = nil;
             //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
             if (xprox <= crashRange && yprox <= crashRange) {
                 NSLog(@"YOUR TANK GOT HIT!!!");
-                [self->tank removeFromParent];
+                tankHitPoints -= 20;
             }
 
         });
@@ -399,12 +429,12 @@ bool isMasterGame = NO;
     for (SKShapeNode* b in bullets) {
         [bulls addObject:@(b.position.x)];
         [bulls addObject:@(b.position.y)];
-        //[bulls setValue:@(b.position.x) forKey:[NSString stringWithFormat:@"%d_x", i]];
-        //[bulls setValue:@(b.position.y) forKey:[NSString stringWithFormat:@"%d_y", i]];
         i++;
     }
-//    [dict setValue:bulls forKey:@"bullets"];
     [dict setObject:bulls forKey:@"bullets"];
+
+    // Now get this tank hitpoints
+    [dict setValue:@(tankHitPoints) forKey:@"tankHitPoints"];
 
     return [dict copy];
 }

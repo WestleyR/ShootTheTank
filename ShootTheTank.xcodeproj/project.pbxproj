@@ -109,10 +109,10 @@
 		3D2AF6A025CF13C40046DC00 /* ShootTheTank */ = {
 			isa = PBXGroup;
 			children = (
-				3D2AF6A125CF13C40046DC00 /* AppDelegate.h */,
 				3D2AF6A225CF13C40046DC00 /* AppDelegate.m */,
-				3D2AF6A425CF13C40046DC00 /* GameScene.sks */,
+				3D2AF6A125CF13C40046DC00 /* AppDelegate.h */,
 				3D2AF6A625CF13C40046DC00 /* Actions.sks */,
+				3D2AF6A425CF13C40046DC00 /* GameScene.sks */,
 				3D2AF6A825CF13C40046DC00 /* GameScene.h */,
 				3D2AF6A925CF13C40046DC00 /* GameScene.m */,
 				3D2AF6AB25CF13C40046DC00 /* ViewController.h */,
