@@ -9,51 +9,17 @@
 
 @implementation SoundFX
 
-NSSound* tankFireSoundMed = nil;
+SystemSoundID tankFireMedFX = 0;
 
-- (void)foo {
-    NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"fire_med" withExtension:@"mp3"];
-
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-    if (self.audioPlayer == nil) {
-        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-    }
-
-    [self.audioPlayer stop];
-    [self.audioPlayer prepareToPlay];
-    [self.audioPlayer play];
-    });
-}
-
-SoundFX* ins = nil;
 
 + (void)SFXShootTank {
+    NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"fire_med" withExtension:@"mp3"];
 
-//        NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"fire_med" withExtension:@"mp3"];
-//        tankFireSoundMed = [[NSSound alloc] initWithContentsOfURL:soundFileURL byReference:NO];
+    if (tankFireMedFX == 0) {
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFileURL, &tankFireMedFX);
+    }
 
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//    [tankFireSoundMed play];
-//    });
-
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"fire_med" withExtension:@"mp3"];
-            tankFireSoundMed = [[NSSound alloc] initWithContentsOfURL:soundFileURL byReference:NO];
-
-            [tankFireSoundMed play];
-        });
-
-
-//    if (ins == nil) {
-//        ins = [[SoundFX alloc] init];
-//    }
-//    [ins foo];
-
-
-//    AVAudioPlayer* bombSoundEffect = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
-//    [bombSoundEffect play];
-
-
+    AudioServicesPlaySystemSound(tankFireMedFX);
 }
 
 @end
