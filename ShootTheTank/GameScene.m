@@ -501,10 +501,10 @@ bool isMasterGame = NO;
         bullet.lineWidth = 15;
         bullet.strokeColor = [NSColor blackColor];
 
-        //[bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:0.5]]];
+        // Calculate the duration, which is determent on where you click to fire
+        float dur = (fabs(pos.x) + fabs(pos.y)) / 800;
 
-        CGVector vect = CGVectorMake(0, 300);
-        [bullet runAction:[SKAction repeatActionForever:[SKAction moveBy:vect duration:1]]];
+        [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:dur]]];
         [bullet runAction:[SKAction sequence:@[
             [SKAction waitForDuration:2.5],
             [SKAction fadeOutWithDuration:0.1],
