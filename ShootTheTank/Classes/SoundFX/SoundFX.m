@@ -29,31 +29,31 @@ SystemSoundID engineFX = 0;
 + (void)SFXShootTankLight {
     NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"fire_light" withExtension:@"mp3"];
 
-    if (tankFireMedFX == 0) {
+    if (tankFireLightFX == 0) {
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFileURL, &tankFireMedFX);
     }
 
-    AudioServicesPlaySystemSound(tankFireMedFX);
+    AudioServicesPlaySystemSound(tankFireLightFX);
 }
 
 + (void)SFXFireBurning {
     NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"fire_burning" withExtension:@"mp3"];
 
-    if (tankFireMedFX == 0) {
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFileURL, &tankFireMedFX);
+    if (fireBurningFX == 0) {
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFileURL, &fireBurningFX);
     }
 
-    AudioServicesPlaySystemSound(tankFireMedFX);
+    AudioServicesPlaySystemSound(fireBurningFX);
 }
 
 + (void)SFXEngine {
     NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"engine" withExtension:@"mp3"];
 
-    if (tankFireMedFX == 0) {
-        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFileURL, &tankFireMedFX);
+    if (engineFX == 0) {
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFileURL, &engineFX);
     }
 
-    AudioServicesPlaySystemSound(tankFireMedFX);
+    AudioServicesPlaySystemSound(engineFX);
 }
 
 @end

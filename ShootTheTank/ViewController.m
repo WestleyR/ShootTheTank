@@ -16,6 +16,7 @@
 
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* lastIPAddress = [defaults valueForKey:@"LastIPAddress"];
+    if (lastIPAddress == nil) lastIPAddress = @"";
     [self.ipAddressTextField setStringValue:lastIPAddress];
 }
 
