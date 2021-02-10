@@ -552,8 +552,8 @@ NSTimer* autoShootTimer;
 NSPoint mouseDownPos;
 
 - (void)startFireing {
-    autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 repeats:YES block:^(NSTimer *timer) {
-        [SoundFX SFXShootTank];
+    autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:0.9 repeats:YES block:^(NSTimer *timer) {
+        [SoundFX SFXShootTankMed];
         [self shootBullet:mouseDownPos];
     }];
 }
@@ -583,7 +583,7 @@ NSPoint mouseDownPos;
 }
 
 - (void)touchDownAtPoint:(CGPoint)pos {
-    [SoundFX SFXShootTank];
+    [SoundFX SFXShootTankMed];
     [self shootBullet:pos];
 }
 

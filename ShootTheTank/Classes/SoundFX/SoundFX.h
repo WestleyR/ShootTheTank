@@ -12,7 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SoundFX : NSObject
 
-+ (void)SFXShootTank;
++ (void)SFXShootTankMed;
++ (void)SFXShootTankLight;
++ (void)SFXFireBurning;
++ (void)SFXEngine;
 
 @end
 
