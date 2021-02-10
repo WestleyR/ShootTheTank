@@ -20,6 +20,17 @@
     [self.ipAddressTextField setStringValue:lastIPAddress];
 }
 
+- (IBAction)buttonPress:(id)sender {
+//    NSViewController *gameView = [self.storyboard instantiateControllerWithIdentifier:@"foo"];
+
+//    [self addChildViewController:self];
+//    [self addChildViewController:gameView];
+
+    //[self.foobar setFrameSize:gameView.view.bounds.size];
+
+    //[self.view addSubview:gameView.view];
+}
+
 - (IBAction)createGameAction:(id)sender {
     NSLog(@"%s", __func__);
 

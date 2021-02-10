@@ -17,5 +17,9 @@
 @property (weak) IBOutlet NSView *gameMenuView;
 @property (weak) IBOutlet NSTextField *ipAddressTextField;
 
+@property (strong) IBOutlet NSView *foobar;
+
+@property (weak) IBOutlet NSView *gameVC;
+
 @end
 
