@@ -218,6 +218,7 @@ dispatch_queue_t arrayQueue;
                         int xprox = abs(bx - x);
                         int yprox = abs(by - y);
 
+                        // The bullet hit an object
                         if (xprox <= crashRange && yprox <= crashRange) {
                             NSLog(@"CRASH");
 
@@ -257,8 +258,31 @@ dispatch_queue_t arrayQueue;
                                 });
                             });
                         }
+
                     }
                 }
+
+                // Now check if the bullet(s) hit another tank
+                for (SKShapeNode* b in [bullets copy]) {
+                    int otx = self->otherTank.position.x;
+                    int oty = self->otherTank.position.y;
+
+                    int bx = b.position.x;
+                    int by = b.position.y;
+
+                    int xprox = abs(bx - otx);
+                    int yprox = abs(by - oty);
+
+                    int crashRange = 40;
+
+                    // The bullet hit an object
+                    if (xprox <= crashRange && yprox <= crashRange) {
+                        NSLog(@"You hit another tank!");
+                        [b removeFromParent];
+                        [bullets removeObject:b];
+                    }
+                }
+
 
                 // Now save this player posistion to the web server
                 NSDictionary* tankPosDict = [self getTankPosistion];
@@ -292,6 +316,7 @@ NSString* otherPlayerIPAddress = nil;
 }
 
 SKShapeNode* otherTankBullet = nil;
+NSDate* lastTimeHit = nil;
 
 - (int)getAndPlaceOtherTanks {
     if (otherPlayerIPAddress == nil) {
@@ -384,10 +409,12 @@ SKShapeNode* otherTankBullet = nil;
 
             //NSLog(@"TANK PROX: %d->%d", xprox, yprox);
             if (xprox <= crashRange && yprox <= crashRange) {
-                NSLog(@"YOUR TANK GOT HIT!!!");
-                tankHitPoints -= 20;
+                if (lastTimeHit == nil || [lastTimeHit timeIntervalSinceNow] < -0.9) {
+                    NSLog(@"YOUR TANK GOT HIT!!!");
+                    tankHitPoints -= 20;
+                    lastTimeHit = [NSDate date];
+                }
             }
-
         });
     }
 
