@@ -18,7 +18,7 @@
 //****************
 
 // Starting hit points
-NSInteger tankHitPoints = 200;
+NSInteger defaultHitPoints = 200;
 
 // The tank moving speed
 double tankMovmentSpeed = 15.12;
@@ -35,6 +35,9 @@ NSMutableArray <SKShapeNode*>* bullets;
 NSArray <SKTexture*>* fireFrames;
 
 NSArray <SKTexture*>* tankRotationTX;
+
+// This is the current hit points
+NSInteger tankHitPoints;
 
 SKLabelNode* tankHealthLabel = nil;
 NSString* tankClass = nil;
@@ -74,22 +77,24 @@ dispatch_queue_t arrayQueue;
     // Setup the tank classes features
     if ([tankClass isEqualToString:@"GenEric"]) {
         fireingRate = 0.15;
-        tankHitPoints = 350;
+        defaultHitPoints = 350;
     } else if ([tankClass isEqualToString:@"Zipper"]) {
         tankMovmentSpeed = 20;
         fireingRate = 0.25;
     } else if ([tankClass isEqualToString:@"Snail"]) {
         tankMovmentSpeed -= 10;
-        tankHitPoints = 2500;
+        defaultHitPoints = 2500;
     } else if ([tankClass isEqualToString:@"Destroyer"]) {
         bulletDamage += 400;
         fireingRate = 2;
     } else if ([tankClass isEqualToString:@"Snipper"]) {
         bulletDamage += 100;
-        tankHitPoints = 120;
+        defaultHitPoints = 120;
         fireingRate = 1;
         [self setSize:CGSizeMake(2000, 2000)];
     }
+
+    tankHitPoints = defaultHitPoints;
 
     // Setup the tmp dir
     NSURL *furl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"foobar"]];
@@ -378,7 +383,7 @@ dispatch_queue_t arrayQueue;
         pos.y = 0;
 
         self->background.position = pos;
-        tankHitPoints = 200;
+        tankHitPoints = defaultHitPoints;
     });
 }
 
