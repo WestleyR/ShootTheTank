@@ -29,7 +29,7 @@ int tankCamoBarValue = 0;
     [super viewDidLoad];
 
     // Setup the tank classes
-    tankClasses = @[@"Gen-Eric", @"Zipper", @"Snail", @"Snipper", @"Destroyer"];
+    tankClasses = @[@"GenEric", @"Zipper", @"Snail", @"Snipper", @"Destroyer"];
 
     // Set the background color for the menu view
     CGColorRef bgColor = CGColorCreateSRGB(0.3, 0.3, 0.3, 1);
@@ -102,6 +102,9 @@ int tankCamoBarValue = 0;
 
     // Save the last IP address used
     [[NSUserDefaults standardUserDefaults] setValue:self.ipAddressTextField.stringValue forKey:@"LastIPAddress"];
+
+    // Tell the game scene what class
+    [GameScene setTankClass:tankClasses[tankClassIndex]];
 
     // Load the SKScene from 'GameScene.sks'
     GameScene *scene = (GameScene *)[SKScene nodeWithFileNamed:@"GameScene"];
@@ -340,11 +343,10 @@ int tankCamoBarValue = 0;
 }
 
 - (NSImage*)getTankClassImageForIndex:(int)index {
-    NSArray* tankImageNames = @[@"GenEric", @"Zipper", @"Snail", @"Snipper", @"Destroyer"];
+    // The tank names match the image names
+    if (index > tankClasses.count) return nil;
 
-    if (index > tankImageNames.count) return nil;
-
-    NSURL* imageURL = [NSBundle.mainBundle URLForResource:tankImageNames[index] withExtension:@"png"];
+    NSURL* imageURL = [NSBundle.mainBundle URLForResource:tankClasses[index] withExtension:@"png"];
 
     return [[NSImage alloc] initWithContentsOfURL:imageURL];
 }

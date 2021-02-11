@@ -35,7 +35,10 @@ NSMutableArray <SKShapeNode*>* objects;
 NSMutableArray <SKShapeNode*>* bullets;
 NSArray <SKTexture*>* fireFrames;
 
+NSArray <SKTexture*>* tankRotationTX;
+
 SKLabelNode* tankHealthLabel = nil;
+NSString* tankClass = nil;
 
 int maxObjectCount = 40;
 int currentObjects = 0;
@@ -47,6 +50,25 @@ dispatch_queue_t arrayQueue;
 
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
+
+    // Tank class must be set!
+    if (tankClass == nil) {
+        NSLog(@"%s tank class must be set!", __func__);
+        return;
+    }
+
+    // Load the tank roation textures
+    NSURL* imageURL = [NSBundle.mainBundle URLForResource:tankClass withExtension:@"png"];
+    NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
+
+    NSMutableArray* tmpArr = [NSMutableArray new];
+    int rots[] = {0, 325, 270, 245, 180, 145, 90, 45};
+    for (int i = 0; i < 8; i++) {
+        NSImage* txImg = [self rotateImage:img toDegrees:rots[i]];
+        SKTexture* tx = [SKTexture textureWithImage:txImg];
+        [tmpArr addObject:tx];
+    }
+    tankRotationTX = [tmpArr copy];
 
     // Setup the tmp dir
     NSURL *furl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"foobar"]];
@@ -79,8 +101,20 @@ dispatch_queue_t arrayQueue;
     });
 
     background = (SKShapeNode *)[self childNodeWithName:@"//battleBackground"];
-    tank = (SKShapeNode *)[self childNodeWithName:@"//tank"];
+    //tank = (SKShapeNode *)[self childNodeWithName:@"//tank"];
     tankHealthLabel = (SKLabelNode*)[self childNodeWithName:@"//tankHealth"];
+
+    // Setup the tank
+    dispatch_async(arrayQueue, ^{
+        self->tank = [[SKShapeNode alloc] init];
+        CGSize objSize = CGSizeMake(128, 128);
+        self->tank = [SKShapeNode shapeNodeWithRectOfSize:objSize];
+
+        [self->tank setFillTexture:tankRotationTX[0]];
+        [self->tank setFillColor:[NSColor whiteColor]];
+        self->tank.lineWidth = 0;
+        [self addChild:self->tank];
+    });
 
     // The background demon to move the map
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -151,28 +185,27 @@ dispatch_queue_t arrayQueue;
 
                 // Now set the tank rotation
 
-                int angle = (180 / M_PI * self->tank.zRotation);
+                int angle = 0;
                 if (movingUp) {
                     angle = 0;
                     if (movingLeft) {
-                        angle = 45;
+                        angle = 7;
                     } else if (movingRight) {
-                        angle = 325;
+                        angle = 1;
                     }
                 } else if (movingDown) {
-                    angle = 180;
+                    angle = 4;
                     if (movingLeft) {
-                        angle = 145;
+                        angle = 5;
                     } else if (movingRight) {
-                        angle = 245;
+                        angle = 3;
                     }
                 } else if (movingLeft) {
-                    angle = 90;
+                    angle = 6;
                 } else if (movingRight) {
-                    angle = 270;
+                    angle = 2;
                 }
-                double rad = (angle * M_PI / 180);
-                [self->tank setZRotation:rad];
+                [self->tank setFillTexture:tankRotationTX[angle]];
 
                 //**************************************************
                 // Now check if the tank colided with another object
@@ -677,6 +710,41 @@ NSDate* lastFiredDate = nil;
 
 - (void)update:(CFTimeInterval)currentTime {
     // Called before each frame is rendered
+}
+
++ (void)setTankClass:(NSString*)tclass {
+    tankClass = tclass;
+}
+
+- (NSImage *)rotateImage:(NSImage*)img toDegrees:(float)degrees {
+    degrees = fmod(degrees, 360.);
+    if (degrees == 0) {
+        return img;
+    }
+    NSSize size = [img size];
+    NSSize maxSize;
+    if (90. == degrees || 270. == degrees || -90. == degrees || -270. == degrees) {
+        maxSize = NSMakeSize(size.height, size.width);
+    } else if (180. == degrees || -180. == degrees) {
+        maxSize = size;
+    } else {
+        maxSize = size;
+        //maxSize = NSMakeSize(28+MAX(size.width, size.height), 28+MAX(size.width, size.height));
+    }
+    NSAffineTransform *rot = [NSAffineTransform transform];
+    [rot rotateByDegrees:degrees];
+    NSAffineTransform *center = [NSAffineTransform transform];
+    [center translateXBy:maxSize.width / 2. yBy:maxSize.height / 2.];
+    [rot appendTransform:center];
+    NSImage *image = [[NSImage alloc] initWithSize:maxSize];
+    [image lockFocus];
+    [rot concat];
+    NSRect rect = NSMakeRect(0, 0, size.width, size.height);
+    NSPoint corner = NSMakePoint(-size.width / 2., -size.height / 2.);
+    [img drawAtPoint:corner fromRect:rect operation:NSCompositingOperationCopy fraction:1.0];
+    [image unlockFocus];
+
+    return image;
 }
 
 @end

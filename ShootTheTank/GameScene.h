@@ -16,4 +16,6 @@
 + (void)setOtherPlayerIPAddress:(NSString*)ip;
 + (void)setIsMasterGame:(BOOL)master;
 
++ (void)setTankClass:(NSString*)tclass;
+
 @end
