@@ -838,6 +838,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="UTPTAPlusAction:" target="z6q-gg-tER" id="fKn-mY-AHg"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ui4-QC-z9E">
                                 <rect key="frame" x="201" y="126" width="18.5" height="13"/>
@@ -846,6 +849,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="UTPTAMinusAction:" target="z6q-gg-tER" id="sKN-k6-CA6"/>
+                                </connections>
                             </button>
                             <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PrF-1H-dB0">
                                 <rect key="frame" x="227" y="96" width="96" height="18"/>
@@ -868,6 +874,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="UTPMHPlusAction:" target="z6q-gg-tER" id="srE-k2-W4x"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xLj-jQ-AEh">
                                 <rect key="frame" x="201" y="100" width="18.5" height="13"/>
@@ -876,6 +885,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="UTPMHMinusAction:" target="z6q-gg-tER" id="t26-92-qv7"/>
+                                </connections>
                             </button>
                             <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gBe-HN-OU6">
                                 <rect key="frame" x="227" y="70" width="96" height="18"/>
@@ -898,6 +910,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="UTPTSPlusAction:" target="z6q-gg-tER" id="5fc-1e-6Ac"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O8h-is-f2k">
                                 <rect key="frame" x="201" y="74" width="18.5" height="13"/>
@@ -906,6 +921,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="UTPTSMinusAction:" target="z6q-gg-tER" id="ve8-ba-jUx"/>
+                                </connections>
                             </button>
                             <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WyV-gs-De8">
                                 <rect key="frame" x="227" y="43" width="96" height="18"/>
@@ -928,6 +946,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="UTPTCPlusAction:" target="z6q-gg-tER" id="p8o-JY-eHi"/>
+                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uka-HG-4Fp">
                                 <rect key="frame" x="201" y="47" width="18.5" height="13"/>
@@ -936,6 +957,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="UTPTCMinusAction:" target="z6q-gg-tER" id="PEB-BS-tFe"/>
+                                </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4r3-ab-g0f">
                                 <rect key="frame" x="107" y="20" width="236" height="16"/>
