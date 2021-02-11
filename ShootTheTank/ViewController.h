@@ -27,6 +27,7 @@
 
 @property (weak) IBOutlet NSLevelIndicator *UTPBulletDamageBar;
 @property (weak) IBOutlet NSLevelIndicator *UTPBulletSpeedBar;
+@property (weak) IBOutlet NSLevelIndicator *UTPBulletFireRateBar;
 @property (weak) IBOutlet NSLevelIndicator *UTPArmorBar;
 @property (weak) IBOutlet NSLevelIndicator *UTPMaxHitpointsBar;
 @property (weak) IBOutlet NSLevelIndicator *UTPTankSpeedBar;

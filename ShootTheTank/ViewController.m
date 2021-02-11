@@ -11,13 +11,14 @@
 @implementation ViewController
 
 // The amount of upgrade points avalible
-NSInteger upgradePointPool = 50;
+NSInteger upgradePointPool = 30;
 
 int tankClassIndex = 0;
 NSArray <NSString*>* tankClasses;
 
 int bulletDamageBarValue = 0;
 int bulletSpeedBarValue = 0;
+int bulletFireRateBarValue = 0;
 int tankArmorBarValue = 0;
 int maxHitpointsBarValue = 0;
 int tankSpeedBarValue = 0;
@@ -48,6 +49,7 @@ int tankCamoBarValue = 0;
     // Bullet damage bar
     [self.UTPBulletDamageBar setIntValue:bulletDamageBarValue];
     [self.UTPBulletSpeedBar setIntValue:bulletSpeedBarValue];
+    [self.UTPBulletFireRateBar setIntValue:bulletFireRateBarValue];
     [self.UTPArmorBar setIntValue:tankArmorBarValue];
     [self.UTPMaxHitpointsBar setIntValue:maxHitpointsBarValue];
     [self.UTPTankSpeedBar setIntValue:tankSpeedBarValue];
@@ -194,6 +196,35 @@ int tankCamoBarValue = 0;
 
     upgradePointPool += 5;
     self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
+}
+
+// Bullet fire rate
+- (IBAction)UTPFRPlusAction:(id)sender {
+    if (upgradePointPool < 5) return;
+
+    if (bulletFireRateBarValue + 1 > self.UTPBulletFireRateBar.maxValue) {
+        return;
+    }
+
+    bulletFireRateBarValue++;
+
+    [self.UTPBulletFireRateBar setIntValue:bulletFireRateBarValue];
+
+    upgradePointPool -= 5;
+    self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
+}
+- (IBAction)UTPRFMinusAction:(id)sender {
+    if (bulletFireRateBarValue - 1 < 0) {
+        return;
+    }
+
+    bulletFireRateBarValue--;
+
+    [self.UTPBulletFireRateBar setIntValue:bulletFireRateBarValue];
+
+    upgradePointPool += 5;
+    self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
+
 }
 
 // Tank armor
