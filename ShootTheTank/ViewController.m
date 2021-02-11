@@ -31,17 +31,17 @@ int tankCamoBarValue = 0;
     tankClasses = @[@"Gen-Eric", @"Zipper", @"Snail", @"Snipper", @"Destroyer"];
 
     // Set the background color for the menu view
-    //[self.gameMenuView setValue:[NSColor colorWithRed:55 green:55 blue:55 alpha:0] forKey:@"backgroundColor"];
-
     CGColorRef bgColor = CGColorCreateSRGB(0.3, 0.3, 0.3, 1);
     [self.gameMenuView setWantsLayer:YES];
     [self.gameMenuView.layer setBackgroundColor:bgColor];
 
+    // Get the last saved IP address
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* lastIPAddress = [defaults valueForKey:@"LastIPAddress"];
     if (lastIPAddress == nil) lastIPAddress = @"";
     [self.ipAddressTextField setStringValue:lastIPAddress];
 
+    // GUI preps
     self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
     self.UTPClassNameLabel.stringValue = tankClasses[tankClassIndex];
 
@@ -54,6 +54,17 @@ int tankCamoBarValue = 0;
     [self.UTPCamoBar setIntValue:tankCamoBarValue];
 
     self.UTPTankClassImage.image = [self getTankClassImageForIndex:tankClassIndex];
+    [self.tankImage setImage:[self getTankClassImageForIndex:tankClassIndex]];
+
+    // TODO: I dont know why I need to run a timer like this, just updating the image after swiching does not work.
+    __block NSTimer* updateGUI = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer *timer) {
+        [self.tankImage setImage:[self getTankClassImageForIndex:tankClassIndex]];
+
+        if (self.gameMenuView.isHidden) {
+            NSLog(@"%s stopping background timer", __func__);
+            [updateGUI invalidate];
+        }
+    }];
 }
 
 - (IBAction)createGameAction:(id)sender {

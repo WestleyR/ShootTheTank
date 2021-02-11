@@ -1044,7 +1044,8 @@
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <segue destination="z6q-gg-tER" kind="popover" popoverAnchorView="a4q-Pc-5Jd" popoverBehavior="t" preferredEdge="maxY" id="huv-Yh-xB4"/>
+                                            <action selector="upgradeMyTankAction:" target="XfG-lQ-9wD" id="ehe-b1-GoW"/>
+                                            <segue destination="z6q-gg-tER" kind="popover" popoverAnchorView="a4q-Pc-5Jd" popoverBehavior="t" preferredEdge="maxY" id="req-WN-yZL"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1055,6 +1056,7 @@
                         <outlet property="gameMenuView" destination="nbe-fN-Zyu" id="KAB-va-b0A"/>
                         <outlet property="ipAddressTextField" destination="Emt-Xt-EzT" id="am9-qX-p7U"/>
                         <outlet property="skView" destination="m2S-Jp-Qdl" id="qux-te-cT3"/>
+                        <outlet property="tankImage" destination="c2H-eh-wc8" id="bBM-7w-d5a"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

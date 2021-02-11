@@ -16,7 +16,7 @@
 @property (assign) IBOutlet SKView *skView;
 @property (weak) IBOutlet NSView *gameMenuView;
 @property (weak) IBOutlet NSTextField *ipAddressTextField;
-
+@property (weak) IBOutlet NSImageView *tankImage;
 
 //*******************
 // Upgrade tank popup
