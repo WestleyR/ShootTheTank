@@ -21,5 +21,23 @@
 
 @property (weak) IBOutlet NSView *gameVC;
 
+
+//*******************
+// Upgrade tank popup
+//*******************
+
+@property (weak) IBOutlet NSImageView *UTPTankClassImage;
+@property (weak) IBOutlet NSTextField *UTPClassNameLabel;
+
+@property (weak) IBOutlet NSLevelIndicator *UTPBulletDamageBar;
+@property (weak) IBOutlet NSLevelIndicator *UTPBulletSpeedBar;
+@property (weak) IBOutlet NSLevelIndicator *UTPArmorBar;
+@property (weak) IBOutlet NSLevelIndicator *UTPMaxHitpointsBar;
+@property (weak) IBOutlet NSLevelIndicator *UTPTankSpeedBar;
+@property (weak) IBOutlet NSLevelIndicator *UTPCamoBar;
+
+@property (weak) IBOutlet NSTextField *UTPRemaningPointsLabel;
+
+
 @end
 

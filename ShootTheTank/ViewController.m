@@ -10,25 +10,32 @@
 
 @implementation ViewController
 
+// The amount of upgrade points avalible
+NSInteger upgradePointPool = 20;
+
+int tankClassIndex = 0;
+NSArray <NSString*>* tankClasses;
+
+int bulletDamageBarValue = 0;
+
 - (void)viewDidLoad {
     NSLog(@"%s", __func__);
     [super viewDidLoad];
+
+    // Setup the tank classes
+    tankClasses = @[@"Gen-Eric", @"Zipper", @"Snail", @"Snipper", @"Destroyer"];
 
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* lastIPAddress = [defaults valueForKey:@"LastIPAddress"];
     if (lastIPAddress == nil) lastIPAddress = @"";
     [self.ipAddressTextField setStringValue:lastIPAddress];
-}
 
-- (IBAction)buttonPress:(id)sender {
-//    NSViewController *gameView = [self.storyboard instantiateControllerWithIdentifier:@"foo"];
+    self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
+    self.UTPClassNameLabel.stringValue = tankClasses[tankClassIndex];
 
-//    [self addChildViewController:self];
-//    [self addChildViewController:gameView];
-
-    //[self.foobar setFrameSize:gameView.view.bounds.size];
-
-    //[self.view addSubview:gameView.view];
+    // Bullet damage bar
+    [self.UTPBulletDamageBar setIntValue:bulletDamageBarValue];
+    self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
 }
 
 - (IBAction)createGameAction:(id)sender {
@@ -83,5 +90,61 @@
 //*******************
 
 
+// Class buttons
+// TODO: add the images
+- (IBAction)UTPClassLeft:(id)sender {
+    tankClassIndex--;
+    if (tankClassIndex < 0) {
+        tankClassIndex = (int)tankClasses.count-1;
+    }
+
+    self.UTPClassNameLabel.stringValue = tankClasses[tankClassIndex];
+}
+
+- (IBAction)UTPClassRight:(id)sender {
+    tankClassIndex++;
+    if (tankClassIndex > tankClasses.count-1) {
+        tankClassIndex = 0;
+    }
+
+    self.UTPClassNameLabel.stringValue = tankClasses[tankClassIndex];
+}
+
+// Bullet damage
+- (IBAction)UTPBDPlusAction:(id)sender {
+    if (upgradePointPool < 5) return;
+
+    if (bulletDamageBarValue + 1 > self.UTPBulletDamageBar.maxValue) {
+        return;
+    }
+
+    bulletDamageBarValue++;
+
+    [self.UTPBulletDamageBar setIntValue:bulletDamageBarValue];
+
+    upgradePointPool -= 5;
+    self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
+}
+
+- (IBAction)UTPBDMinuseAction:(id)sender {
+    if (bulletDamageBarValue - 1 < 0) {
+        return;
+    }
+
+    bulletDamageBarValue--;
+
+    [self.UTPBulletDamageBar setIntValue:bulletDamageBarValue];
+
+    upgradePointPool += 5;
+    self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
+}
+
+
+// Bullet speed
+- (IBAction)UTPBSMinusAction:(id)sender {
+}
+
+- (IBAction)UTPBSPlusAction:(id)sender {
+}
 
 @end
