@@ -47,7 +47,13 @@ int tankCamoBarValue = 0;
 
     // Bullet damage bar
     [self.UTPBulletDamageBar setIntValue:bulletDamageBarValue];
-    self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
+    [self.UTPBulletSpeedBar setIntValue:bulletSpeedBarValue];
+    [self.UTPArmorBar setIntValue:tankArmorBarValue];
+    [self.UTPMaxHitpointsBar setIntValue:maxHitpointsBarValue];
+    [self.UTPTankSpeedBar setIntValue:tankSpeedBarValue];
+    [self.UTPCamoBar setIntValue:tankCamoBarValue];
+
+    self.UTPTankClassImage.image = [self getTankClassImageForIndex:tankClassIndex];
 }
 
 - (IBAction)createGameAction:(id)sender {
@@ -103,7 +109,6 @@ int tankCamoBarValue = 0;
 
 
 // Class buttons
-// TODO: add the images
 - (IBAction)UTPClassLeft:(id)sender {
     tankClassIndex--;
     if (tankClassIndex < 0) {
@@ -111,6 +116,7 @@ int tankCamoBarValue = 0;
     }
 
     self.UTPClassNameLabel.stringValue = tankClasses[tankClassIndex];
+    self.UTPTankClassImage.image = [self getTankClassImageForIndex:tankClassIndex];
 }
 
 - (IBAction)UTPClassRight:(id)sender {
@@ -120,6 +126,7 @@ int tankCamoBarValue = 0;
     }
 
     self.UTPClassNameLabel.stringValue = tankClasses[tankClassIndex];
+    self.UTPTankClassImage.image = [self getTankClassImageForIndex:tankClassIndex];
 }
 
 // Bullet damage
@@ -288,6 +295,16 @@ int tankCamoBarValue = 0;
 
     upgradePointPool += 10;
     self.UTPRemaningPointsLabel.stringValue = [NSString stringWithFormat:@"%d points left", (int)upgradePointPool];
+}
+
+- (NSImage*)getTankClassImageForIndex:(int)index {
+    NSArray* tankImageNames = @[@"GenEric", @"Zipper", @"Snail", @"Snipper", @"Destroyer"];
+
+    if (index > tankImageNames.count) return nil;
+
+    NSURL* imageURL = [NSBundle.mainBundle URLForResource:tankImageNames[index] withExtension:@"png"];
+
+    return [[NSImage alloc] initWithContentsOfURL:imageURL];
 }
 
 @end

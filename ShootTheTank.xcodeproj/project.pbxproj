@@ -36,6 +36,8 @@
 		3D2AF73A25D240380046DC00 /* dust_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73525D240380046DC00 /* dust_5.png */; };
 		3D2AF73B25D240380046DC00 /* dust_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2AF73625D240380046DC00 /* dust_4.png */; };
 		3D2AF74125D240D80046DC00 /* SoundFX.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D2AF74025D240D80046DC00 /* SoundFX.m */; };
+		3DC90C4A25D4CBB700B00383 /* Zipper.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC90C4825D4CBB700B00383 /* Zipper.png */; };
+		3DC90C4B25D4CBB700B00383 /* GenEric.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC90C4925D4CBB700B00383 /* GenEric.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +77,8 @@
 		3D2AF73625D240380046DC00 /* dust_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dust_4.png; sourceTree = "<group>"; };
 		3D2AF73F25D240D80046DC00 /* SoundFX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundFX.h; sourceTree = "<group>"; };
 		3D2AF74025D240D80046DC00 /* SoundFX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundFX.m; sourceTree = "<group>"; };
+		3DC90C4825D4CBB700B00383 /* Zipper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Zipper.png; sourceTree = "<group>"; };
+		3DC90C4925D4CBB700B00383 /* GenEric.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GenEric.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +134,7 @@
 		3D2AF6BD25CF14350046DC00 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3DC90C4725D4CBB700B00383 /* TankClasses */,
 				3D2AF73025D240040046DC00 /* Fire_frames */,
 				3D2AF73125D240380046DC00 /* Dust_frames */,
 				3D2AF6C125CF14F20046DC00 /* background.png */,
@@ -202,6 +207,15 @@
 			path = SoundFX;
 			sourceTree = "<group>";
 		};
+		3DC90C4725D4CBB700B00383 /* TankClasses */ = {
+			isa = PBXGroup;
+			children = (
+				3DC90C4825D4CBB700B00383 /* Zipper.png */,
+				3DC90C4925D4CBB700B00383 /* GenEric.png */,
+			);
+			path = TankClasses;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -266,6 +280,7 @@
 				3D2AF72125D1B8850046DC00 /* gohost in Resources */,
 				3D2AF70925CF8E650046DC00 /* bush.png in Resources */,
 				3D2AF72E25D23FF90046DC00 /* engine.mp3 in Resources */,
+				3DC90C4B25D4CBB700B00383 /* GenEric.png in Resources */,
 				3D2AF73725D240380046DC00 /* dust_3.png in Resources */,
 				3D2AF6C225CF14F20046DC00 /* background.png in Resources */,
 				3D2AF71925CF98A00046DC00 /* fire_3.png in Resources */,
@@ -279,6 +294,7 @@
 				3D2AF73A25D240380046DC00 /* dust_5.png in Resources */,
 				3D2AF72C25D23FF90046DC00 /* fire_med.mp3 in Resources */,
 				3D2AF70C25CF8FC10046DC00 /* bushytree.png in Resources */,
+				3DC90C4A25D4CBB700B00383 /* Zipper.png in Resources */,
 				3D2AF71825CF98A00046DC00 /* fire_1.png in Resources */,
 				3D2AF73925D240380046DC00 /* dust_1.png in Resources */,
 				3D2AF6F525CF45670046DC00 /* obj1.png in Resources */,
