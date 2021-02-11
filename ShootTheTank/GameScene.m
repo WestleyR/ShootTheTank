@@ -26,7 +26,6 @@ double tankMovmentSpeed = 15.12;
 // The amount of damage that this tank will deal to other tanks
 float bulletDamage = 20;
 
-
 //**************
 // Internal vars
 //**************
@@ -42,6 +41,8 @@ NSString* tankClass = nil;
 
 int maxObjectCount = 40;
 int currentObjects = 0;
+
+float fireingRate = 0.9;
 
 NSURL* multiPlayerDir = NULL;
 NSURL* multiPlayerMyFile = NULL;
@@ -69,6 +70,26 @@ dispatch_queue_t arrayQueue;
         [tmpArr addObject:tx];
     }
     tankRotationTX = [tmpArr copy];
+
+    // Setup the tank classes features
+    if ([tankClass isEqualToString:@"GenEric"]) {
+        fireingRate = 0.15;
+        tankHitPoints = 350;
+    } else if ([tankClass isEqualToString:@"Zipper"]) {
+        tankMovmentSpeed = 20;
+        fireingRate = 0.25;
+    } else if ([tankClass isEqualToString:@"Snail"]) {
+        tankMovmentSpeed -= 10;
+        tankHitPoints = 2500;
+    } else if ([tankClass isEqualToString:@"Destroyer"]) {
+        bulletDamage += 400;
+        fireingRate = 2;
+    } else if ([tankClass isEqualToString:@"Snipper"]) {
+        bulletDamage += 100;
+        tankHitPoints = 120;
+        fireingRate = 1;
+        [self setSize:CGSizeMake(2000, 2000)];
+    }
 
     // Setup the tmp dir
     NSURL *furl = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"foobar"]];
@@ -556,12 +577,21 @@ bool isMasterGame = NO;
             startPos.y = -fabs(startPos.y);
         }
 
+        // The default speed
+        int bulletSpeed = 1200;
+
         SKShapeNode* bullet = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(10, 10) cornerRadius:30 * 0.3];
         bullet.lineWidth = 15;
+        if ([tankClass isEqualToString:@"Destroyer"]) {
+            bullet.lineWidth = 50;
+        } else if ([tankClass isEqualToString:@"Snipper"]) {
+            bulletSpeed = 2500;
+        }
+
         bullet.strokeColor = [NSColor blackColor];
 
         // Calculate the duration, which is determent on where you click to fire
-        float dur = (fabs(pos.x) + fabs(pos.y)) / 1200;
+        float dur = (fabs(pos.x) + fabs(pos.y)) / bulletSpeed;
 
         [bullet runAction:[SKAction repeatActionForever:[SKAction moveByX:pos.x y:pos.y duration:dur]]];
         [bullet runAction:[SKAction sequence:@[
@@ -668,7 +698,7 @@ NSPoint mouseDownPos;
 NSDate* lastFiredDate = nil;
 
 - (void)startFireing {
-    autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:0.9 repeats:YES block:^(NSTimer *timer) {
+    autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:fireingRate repeats:YES block:^(NSTimer *timer) {
         [SoundFX SFXShootTankMed];
         [self shootBullet:mouseDownPos];
     }];
@@ -697,7 +727,7 @@ NSDate* lastFiredDate = nil;
 }
 
 - (void)touchDownAtPoint:(CGPoint)pos {
-    if (lastFiredDate == nil || [lastFiredDate timeIntervalSinceNow] < -0.9) {
+    if (lastFiredDate == nil || [lastFiredDate timeIntervalSinceNow] < -fireingRate) {
         [SoundFX SFXShootTankMed];
         [self shootBullet:pos];
         lastFiredDate = [NSDate date];

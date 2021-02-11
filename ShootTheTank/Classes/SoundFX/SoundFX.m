@@ -19,9 +19,9 @@ SystemSoundID engineFX = 0;
 + (void)SFXShootTankMed {
     NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"fire_med" withExtension:@"mp3"];
 
-    if (tankFireMedFX == 0) {
+    //if (tankFireMedFX == 0) {
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFileURL, &tankFireMedFX);
-    }
+    //}
 
     AudioServicesPlaySystemSound(tankFireMedFX);
 }
