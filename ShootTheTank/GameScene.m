@@ -394,6 +394,7 @@ NSString* otherPlayerIPAddress = nil;
 }
 
 SKShapeNode* otherTankBullet = nil;
+NSString* otherTankClass = @"";
 NSDate* lastTimeHit = nil;
 
 - (int)getAndPlaceOtherTanks {
@@ -410,12 +411,12 @@ NSDate* lastTimeHit = nil;
     pos.x = [otherTankDict[@"tankPosX"] doubleValue];
     pos.y = [otherTankDict[@"tankPosY"] doubleValue];
 
-    if (otherTank == nil && [otherTankDict valueForKey:@"class"] != nil) {
+    if ((otherTank == nil && [otherTankDict valueForKey:@"class"] != nil) || ![otherTankClass isEqualToString:[otherTankDict valueForKey:@"class"]]) {
         otherTank = [[SKShapeNode alloc] init];
         CGSize objSize = CGSizeMake(128, 128);
         otherTank = [SKShapeNode shapeNodeWithRectOfSize:objSize];
 
-        NSString* otherTankClass = [otherTankDict valueForKey:@"class"];
+        otherTankClass = [otherTankDict valueForKey:@"class"];
         NSURL* imageURL = [NSBundle.mainBundle URLForResource:otherTankClass withExtension:@"png"];
         NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
         SKTexture* tx = [SKTexture textureWithImage:img];
