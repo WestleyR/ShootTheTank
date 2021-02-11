@@ -211,7 +211,7 @@ dispatch_queue_t arrayQueue;
 
                 // Now set the tank rotation
 
-                int angle = 0;
+                int angle = -1;
                 if (movingUp) {
                     angle = 0;
                     if (movingLeft) {
@@ -231,7 +231,7 @@ dispatch_queue_t arrayQueue;
                 } else if (movingRight) {
                     angle = 2;
                 }
-                [self->tank setFillTexture:tankRotationTX[angle]];
+                if (angle != -1) [self->tank setFillTexture:tankRotationTX[angle]];
 
                 //**************************************************
                 // Now check if the tank colided with another object
