@@ -338,6 +338,16 @@ dispatch_queue_t arrayQueue;
             [NSThread sleepForTimeInterval:0.03f];
         }
     });
+
+    // This is for the less importent stuff
+    [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:YES block:^(NSTimer *timer) {
+        // Check if the tank is still on the battle grounds
+        if (fabs(self->background.position.x) > 2000 || fabs(self->background.position.y) > 2000) {
+            // If the tank is off the battle grounds, then take some hitpoints!
+            NSLog(@"Get back on the battle grounds!!!");
+            tankHitPoints -= 10;
+        }
+    }];
 }
 
 - (void)respawnTank {
@@ -729,7 +739,7 @@ NSDate* lastFiredDate = nil;
         maxSize = size;
     } else {
         maxSize = size;
-        //maxSize = NSMakeSize(28+MAX(size.width, size.height), 28+MAX(size.width, size.height));
+        //maxSize = NSMakeSize(32+MAX(size.width, size.height), 32+MAX(size.width, size.height));
     }
     NSAffineTransform *rot = [NSAffineTransform transform];
     [rot rotateByDegrees:degrees];
