@@ -1053,7 +1053,6 @@
                     </view>
                     <connections>
                         <outlet property="gameMenuView" destination="nbe-fN-Zyu" id="KAB-va-b0A"/>
-                        <outlet property="gameVC" destination="nbe-fN-Zyu" id="iBs-cr-sGB"/>
                         <outlet property="ipAddressTextField" destination="Emt-Xt-EzT" id="am9-qX-p7U"/>
                         <outlet property="skView" destination="m2S-Jp-Qdl" id="qux-te-cT3"/>
                     </connections>

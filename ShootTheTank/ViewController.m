@@ -30,6 +30,13 @@ int tankCamoBarValue = 0;
     // Setup the tank classes
     tankClasses = @[@"Gen-Eric", @"Zipper", @"Snail", @"Snipper", @"Destroyer"];
 
+    // Set the background color for the menu view
+    //[self.gameMenuView setValue:[NSColor colorWithRed:55 green:55 blue:55 alpha:0] forKey:@"backgroundColor"];
+
+    CGColorRef bgColor = CGColorCreateSRGB(0.3, 0.3, 0.3, 1);
+    [self.gameMenuView setWantsLayer:YES];
+    [self.gameMenuView.layer setBackgroundColor:bgColor];
+
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     NSString* lastIPAddress = [defaults valueForKey:@"LastIPAddress"];
     if (lastIPAddress == nil) lastIPAddress = @"";
