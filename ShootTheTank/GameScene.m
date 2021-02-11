@@ -282,6 +282,9 @@ dispatch_queue_t arrayQueue;
                         if (b == nil) break;
 
                         int crashRange = 40;
+                        if ([tankClass isEqualToString:@"Destroyer"]) {
+                            crashRange = 80;
+                        }
 
                         int x = o.position.x;
                         int y = o.position.y;
@@ -471,6 +474,10 @@ NSDate* lastTimeHit = nil;
             // Now check if the bullet hit this tank
 
             int crashRange = 70;
+
+            if ([tankClass isEqualToString:@"Destroyer"]) {
+                crashRange = 140;
+            }
 
             int tx = self->background.position.x;
             int ty = self->background.position.y;
