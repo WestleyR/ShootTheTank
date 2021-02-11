@@ -412,6 +412,10 @@ NSDate* lastTimeHit = nil;
     pos.y = [otherTankDict[@"tankPosY"] doubleValue];
 
     if ((otherTank == nil && [otherTankDict valueForKey:@"class"] != nil) || ![otherTankClass isEqualToString:[otherTankDict valueForKey:@"class"]]) {
+        // If the class was set, then the tank exists before, so remove it
+        if (![otherTankClass isEqualToString:@""]) {
+            [self->otherTank removeFromParent];
+        }
         otherTank = [[SKShapeNode alloc] init];
         CGSize objSize = CGSizeMake(128, 128);
         otherTank = [SKShapeNode shapeNodeWithRectOfSize:objSize];
