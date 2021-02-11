@@ -410,17 +410,18 @@ NSDate* lastTimeHit = nil;
     pos.x = [otherTankDict[@"tankPosX"] doubleValue];
     pos.y = [otherTankDict[@"tankPosY"] doubleValue];
 
-    if (otherTank == nil) {
+    if (otherTank == nil && [otherTankDict valueForKey:@"class"] != nil) {
         otherTank = [[SKShapeNode alloc] init];
         CGSize objSize = CGSizeMake(128, 128);
         otherTank = [SKShapeNode shapeNodeWithRectOfSize:objSize];
 
-        NSURL* imageURL = [NSBundle.mainBundle URLForResource:@"tank" withExtension:@"png"];
+        NSString* otherTankClass = [otherTankDict valueForKey:@"class"];
+        NSURL* imageURL = [NSBundle.mainBundle URLForResource:otherTankClass withExtension:@"png"];
         NSImage* img = [[NSImage alloc] initWithContentsOfURL:imageURL];
         SKTexture* tx = [SKTexture textureWithImage:img];
 
         [otherTank setFillTexture:tx];
-        [otherTank setFillColor:[NSColor redColor]];
+        [otherTank setFillColor:[NSColor whiteColor]];
         otherTank.lineWidth = 0;
         [self->background addChild:otherTank];
     }
@@ -537,6 +538,9 @@ bool isMasterGame = NO;
         i++;
     }
     [dict setObject:bulls forKey:@"bullets"];
+
+    // Set the tank class
+    [dict setValue:tankClass forKey:@"class"];
 
     // Set how much damage to deal to other tanks
     [dict setValue:@(bulletDamage) forKey:@"bulletDamage"];
