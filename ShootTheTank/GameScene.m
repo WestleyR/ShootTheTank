@@ -730,6 +730,7 @@ NSDate* lastFiredDate = nil;
     autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:fireingRate repeats:YES block:^(NSTimer *timer) {
         [SoundFX SFXShootTankMed];
         [self shootBullet:mouseDownPos];
+        lastFiredDate = [NSDate date];
     }];
 }
 
