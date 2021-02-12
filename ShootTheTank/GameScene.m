@@ -142,7 +142,7 @@ dispatch_queue_t arrayQueue;
     dispatch_async(arrayQueue, ^{
         self->tank = [[SKShapeNode alloc] init];
         CGSize objSize = CGSizeMake(128, 128);
-        self->tank = [SKShapeNode shapeNodeWithRectOfSize:objSize];
+        self->tank = [SKShapeNode shapeNodeWithRectOfSize:objSize cornerRadius:40];
 
         [self->tank setFillTexture:tankRotationTX[0]];
         [self->tank setFillColor:[NSColor whiteColor]];
