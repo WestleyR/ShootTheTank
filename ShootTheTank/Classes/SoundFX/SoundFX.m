@@ -13,6 +13,7 @@ SystemSoundID tankFireMedFX = 0;
 SystemSoundID tankFireLightFX = 0;
 SystemSoundID fireBurningFX = 0;
 SystemSoundID engineFX = 0;
+SystemSoundID tankFireSnipperFX = 0;
 
 // TODO: Make these functions a little nicer
 
@@ -34,6 +35,16 @@ SystemSoundID engineFX = 0;
     }
 
     AudioServicesPlaySystemSound(tankFireLightFX);
+}
+
++ (void)SFXShootTankSnipper {
+    NSURL* soundFileURL = [NSBundle.mainBundle URLForResource:@"fire_snipper" withExtension:@"mp3"];
+
+    if (tankFireSnipperFX == 0) {
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFileURL, &tankFireSnipperFX);
+    }
+
+    AudioServicesPlaySystemSound(tankFireSnipperFX);
 }
 
 + (void)SFXFireBurning {

@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)SFXShootTankMed;
 + (void)SFXShootTankLight;
++ (void)SFXShootTankSnipper;
 + (void)SFXFireBurning;
 + (void)SFXEngine;
 

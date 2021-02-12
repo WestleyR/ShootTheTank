@@ -41,6 +41,8 @@
 		3DC90C5025D4D5D100B00383 /* Snipper.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC90C4D25D4D5D100B00383 /* Snipper.png */; };
 		3DC90C5125D4D5D100B00383 /* Destroyer.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC90C4E25D4D5D100B00383 /* Destroyer.png */; };
 		3DC90C5225D4D5D100B00383 /* Snail.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC90C4F25D4D5D100B00383 /* Snail.png */; };
+		3DC90C5625D73EA100B00383 /* fire_snail.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3DC90C5525D73EA100B00383 /* fire_snail.mp3 */; };
+		3DC90C5925D73FBE00B00383 /* fire_snipper.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3DC90C5825D73FBE00B00383 /* fire_snipper.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -85,6 +87,8 @@
 		3DC90C4D25D4D5D100B00383 /* Snipper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snipper.png; sourceTree = "<group>"; };
 		3DC90C4E25D4D5D100B00383 /* Destroyer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Destroyer.png; sourceTree = "<group>"; };
 		3DC90C4F25D4D5D100B00383 /* Snail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snail.png; sourceTree = "<group>"; };
+		3DC90C5525D73EA100B00383 /* fire_snail.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire_snail.mp3; sourceTree = "<group>"; };
+		3DC90C5825D73FBE00B00383 /* fire_snipper.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = fire_snipper.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +170,8 @@
 		3D2AF72625D23FF80046DC00 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				3DC90C5825D73FBE00B00383 /* fire_snipper.mp3 */,
+				3DC90C5525D73EA100B00383 /* fire_snail.mp3 */,
 				3D2AF72725D23FF80046DC00 /* fire_burning.mp3 */,
 				3D2AF72825D23FF80046DC00 /* fire_med.mp3 */,
 				3D2AF72925D23FF80046DC00 /* fire_light.mp3 */,
@@ -284,6 +290,7 @@
 			files = (
 				3D2AF72B25D23FF90046DC00 /* fire_burning.mp3 in Resources */,
 				3DC90C5125D4D5D100B00383 /* Destroyer.png in Resources */,
+				3DC90C5625D73EA100B00383 /* fire_snail.mp3 in Resources */,
 				3D2AF6A525CF13C40046DC00 /* GameScene.sks in Resources */,
 				3D2AF70F25CF90580046DC00 /* deadTree.png in Resources */,
 				3D2AF71725CF98A00046DC00 /* fire_2.png in Resources */,
@@ -299,6 +306,7 @@
 				3DC90C5225D4D5D100B00383 /* Snail.png in Resources */,
 				3D2AF70625CF8E230046DC00 /* battle_grounds.jpg in Resources */,
 				3D2AF70225CF8DAB0046DC00 /* tank.png in Resources */,
+				3DC90C5925D73FBE00B00383 /* fire_snipper.mp3 in Resources */,
 				3D2AF6AF25CF13C70046DC00 /* Assets.xcassets in Resources */,
 				3D2AF72D25D23FF90046DC00 /* fire_light.mp3 in Resources */,
 				3D2AF6FB25CF88100046DC00 /* tree.png in Resources */,

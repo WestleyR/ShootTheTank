@@ -728,7 +728,11 @@ NSDate* lastFiredDate = nil;
 
 - (void)startFireing {
     autoShootTimer = [NSTimer scheduledTimerWithTimeInterval:fireingRate repeats:YES block:^(NSTimer *timer) {
-        [SoundFX SFXShootTankMed];
+        if ([tankClass isEqualToString:@"Snipper"]) {
+            [SoundFX SFXShootTankSnipper];
+        } else {
+            [SoundFX SFXShootTankMed];
+        }
         [self shootBullet:mouseDownPos];
         lastFiredDate = [NSDate date];
     }];
@@ -758,7 +762,11 @@ NSDate* lastFiredDate = nil;
 
 - (void)touchDownAtPoint:(CGPoint)pos {
     if (lastFiredDate == nil || [lastFiredDate timeIntervalSinceNow] < -fireingRate) {
-        [SoundFX SFXShootTankMed];
+        if ([tankClass isEqualToString:@"Snipper"]) {
+            [SoundFX SFXShootTankSnipper];
+        } else {
+            [SoundFX SFXShootTankMed];
+        }
         [self shootBullet:pos];
         lastFiredDate = [NSDate date];
     }
