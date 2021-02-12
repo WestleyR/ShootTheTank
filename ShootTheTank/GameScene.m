@@ -91,7 +91,7 @@ dispatch_queue_t arrayQueue;
         bulletDamage += 100;
         defaultHitPoints = 120;
         fireingRate = 1;
-        [self setSize:CGSizeMake(2000, 2000)];
+        [self setSize:CGSizeMake(2024, 1536)];
     }
 
     tankHitPoints = defaultHitPoints;
@@ -127,8 +127,16 @@ dispatch_queue_t arrayQueue;
     });
 
     background = (SKShapeNode *)[self childNodeWithName:@"//battleBackground"];
-    //tank = (SKShapeNode *)[self childNodeWithName:@"//tank"];
-    tankHealthLabel = (SKLabelNode*)[self childNodeWithName:@"//tankHealth"];
+    tankHealthLabel = [[SKLabelNode alloc] init];
+    [tankHealthLabel setFontSize:30];
+    [tankHealthLabel setFontName:@"Helvetica-Bold"];
+    [tankHealthLabel setFontColor:[NSColor colorWithRed:0 green:0 blue:1 alpha:1]];
+
+    CGPoint pos;
+    pos.x = -5;
+    pos.y = -80;
+    tankHealthLabel.position = pos;
+    [self addChild:tankHealthLabel];
 
     // Setup the tank
     dispatch_async(arrayQueue, ^{
